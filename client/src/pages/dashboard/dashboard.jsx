@@ -10,11 +10,10 @@ export default function Dashboard() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/challenge">Challenge</Link> |{" "}
-        <Link to="/dashboard">Dashboard</Link> |{" "}
+        <Link to="/profile">My Profile</Link> |{" "}
+        <Link to="/dashboard">Dashboard</Link> |{" "} 
         <Link to="/myChallenges">My Challenges</Link> |{" "}
         <Link to="/myPets">My Pets</Link> |{" "}
-        <Link to="/profile">My Profile</Link> |{" "}
       </nav>
     </div>
   );

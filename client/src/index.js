@@ -10,7 +10,7 @@ import Home from "./pages/home/home"
 import MyChallenges from "./pages/myChallenges/myChallenges";
 import MyPets from "./pages/myPets/myPets"
 import Profile from "./pages/profile/profile";
-import Challenge from "./pages/challenge/challenge"
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
@@ -21,7 +21,6 @@ root.render(
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/myChallenges" element={<MyChallenges />} />
-      <Route path="/challenge" element={<Challenge />} />
       <Route path="/myPets" element={<MyPets />} />
       <Route path="/profile" element={<Profile />} />
     </Routes>

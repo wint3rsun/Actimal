@@ -1,13 +1,30 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Dashboard from "./pages/dashboard/dashboard";
+import Home from "./pages/home/home"
+import MyChallenges from "./pages/myChallenges/myChallenges";
+import MyPets from "./pages/myPets/myPets"
+import Profile from "./pages/profile/profile";
+import Challenge from "./pages/challenge/challenge"
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
 root.render(
   <BrowserRouter>
-    <App />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/myChallenges" element={<MyChallenges />} />
+      <Route path="/challenge" element={<Challenge />} />
+      <Route path="/myPets" element={<MyPets />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
   </BrowserRouter>
 );
 

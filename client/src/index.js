@@ -7,12 +7,14 @@ import {
   Route,
 } from "react-router-dom";
 
-import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/home/home"
 import MyChallenges from "./pages/myChallenges/MyChallenges";
 import MyPets from "./pages/myPets/myPets"
 import Profile from "./pages/profile/Profile";
 
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.scss'
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")

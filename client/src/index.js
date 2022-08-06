@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard/Dashboard";
-import Home from "./pages/home/home"
+import Home from "./pages/home/Home"
 import MyChallenges from "./pages/myChallenges/MyChallenges";
-import MyPets from "./pages/myPets/myPets"
+import MyPets from "./pages/myPets/MyPets"
 import Profile from "./pages/profile/Profile";
 
 import 'bootstrap/dist/css/bootstrap.css';

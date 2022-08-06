@@ -7,6 +7,15 @@ import Footer from "../../Footer";
 
 
 export default function MyChallenges() {
+
+  const show = () => {
+    alert("clicked show");
+  }
+
+  const join = () => {
+    alert("clicked join");
+  }
+
   return (
     
     <div>
@@ -18,9 +27,9 @@ export default function MyChallenges() {
         </div>
 
         <div className="mx-5 my-5">
-          <ChallengeListItem />
-          <ChallengeListItem />
-          <ChallengeListItem />
+          <ChallengeListItem onShow={show} onJoin={join}/>
+          <ChallengeListItem  onShow={show} onJoin={join}/>
+          <ChallengeListItem  onShow={show} onJoin={join}/>
         </div>
       </div>
 

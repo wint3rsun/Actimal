@@ -1,4 +1,6 @@
+import React from 'react';  
 import ReactDOM from "react-dom/client";
+import './index.scss';
 import {
   BrowserRouter,
   Routes,
@@ -7,9 +9,9 @@ import {
 
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home"
-import MyChallenges from "./pages/myChallenges/myChallenges";
+import MyChallenges from "./pages/myChallenges/MyChallenges";
 import MyPets from "./pages/myPets/myPets"
-import Profile from "./pages/profile/profile";
+import Profile from "./pages/profile/Profile";
 
 
 const root = ReactDOM.createRoot(

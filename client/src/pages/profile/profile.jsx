@@ -1,7 +1,8 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
+
 import ProfileFooter from "./ProfileFooter";
+import MyFriends from "./MyFriends";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
@@ -35,9 +36,9 @@ export default function Profile() {
   }
 
   return (
-    <main className="layout d-flex flex-column justify-content-around mx-5 my-3 px-2 border">
+    <main className="layout d-flex flex-column mx-5 my-3 px-2 border">
       <button type="button" className="btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
-      <nav className="profile d-flex flex-row justify-content-around">
+      <nav className="profile d-flex flex-row justify-content-around py-3">
         <p onClick={() => {openTab("me")}} id="me" className="tab active"><FontAwesomeIcon icon={faUser}/>Me</p>
         <p onClick={() => {openTab("my-friends")}} id="my-friends" className="tab"><FontAwesomeIcon icon={faUsers} />My Friends <span>222</span></p>
       </nav>
@@ -52,7 +53,7 @@ export default function Profile() {
 
       {mode === MYFRIENDS && (
         <div className="tab-item">
-          <p>My friends list</p>
+          <MyFriends />
         </div>)}
     </main>
   );

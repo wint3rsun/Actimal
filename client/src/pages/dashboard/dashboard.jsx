@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom"
 
+import ChallengeListItem from "../../ChallengeListItem";
+import QuickStats from "./components/QuickStats";
+
 export default function Dashboard() {
   return (
     <div>
@@ -15,6 +18,23 @@ export default function Dashboard() {
         <Link to="/myChallenges">My Challenges</Link> |{" "}
         <Link to="/myPets">My Pets</Link> |{" "}
       </nav>
+
+      <div className="d-flex flex-row justify-content-between border">
+        
+        <div className="mx-5 my-5">
+          <QuickStats />
+        </div>
+
+        <div className="mx-5 my-5">
+          <ChallengeListItem />
+          <ChallengeListItem />
+          <ChallengeListItem />
+        </div>
+      </div>
+
+
+
+
     </div>
   );
 }

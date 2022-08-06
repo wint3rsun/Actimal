@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 import ChallengeListItem from "../../ChallengeListItem";
-import QuickStats from "./components/QuickStats";
+import QuickStats from "../../QuickStats";
 
 export default function Dashboard() {
   return (

@@ -1,24 +1,13 @@
-import { Link } from "react-router-dom"
 
+import TopNav from "../../TopNav";
+import Footer from "../../Footer";
 import ChallengeListItem from "../../ChallengeListItem";
 import QuickStats from "../../QuickStats";
 
 export default function Dashboard() {
   return (
     <div>
-      <h1>Final!</h1>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/profile">My Profile</Link> |{" "}
-        <Link to="/dashboard">Dashboard</Link> |{" "} 
-        <Link to="/myChallenges">My Challenges</Link> |{" "}
-        <Link to="/myPets">My Pets</Link> |{" "}
-      </nav>
-
+      <TopNav/>
       <div className="d-flex flex-row justify-content-between border">
         
         <div className="mx-5 my-5">
@@ -34,7 +23,7 @@ export default function Dashboard() {
 
 
 
-
+      <Footer/>
     </div>
   );
 }

@@ -1,0 +1,40 @@
+.bg {
+  z-index: -1;
+  position: absolute;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  height:336px;
+  background: url(./media/bg1.png) no-repeat;
+  animation: bgMove 30s linear infinite;;
+}
+
+.bg1 {
+  z-index: -1;
+  position: absolute;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  height:384px;
+  background: url(./media/bg2.png) no-repeat;
+  animation: bgMove 40s linear infinite;
+}
+
+.bg2 {
+  z-index: -2;
+  position: absolute;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  height:100%;
+  background: url(./media/bg3.jpg) no-repeat;
+}
+
+@keyframes bgMove {
+  0% {
+      background-position: 0 0;
+  }
+  100% {
+      background-position: -1920px 0;
+  }
+}

@@ -1,11 +1,13 @@
+import React, { useState } from 'react';
 import TopNav from "../../TopNav";
 import Pet from "../../Pet";
 import Footer from "../../Footer";
 import "./myPets.scss";
 
 export default function MyPets() {
+  const [open, setOpen] = useState(true);
   return (
-    <div>
+    <div onClick={() => setOpen(true)}>
       <TopNav />  
     <main>
       <section class="py-1 text-center container">
@@ -21,9 +23,11 @@ export default function MyPets() {
       </section>
     
       <div class="album py-5 bg-light">
-        <div class="container">
+        <div onClick={(e) => {
+          e.stopPropagation();
+        }} class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <Pet />  
+          <Pet open={open}/>
           <Pet /> 
           <Pet /> 
           <Pet /> 

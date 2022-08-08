@@ -21,7 +21,7 @@ export default function TopNav() {
             <a href="/myChallenges"><i className="fa fa-bullseye"></i> My Challenges</a>
             </li>
             <li className="nav-item">
-            <a href="/myPets"><i className="fa fa-paw"></i> My Pets</a>
+            <a href="/myPets"><i className="fa fa-paw"></i> My Cats</a>
             </li>
           </ul>
         </div>

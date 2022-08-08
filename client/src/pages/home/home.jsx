@@ -3,7 +3,7 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 export default function Home() {
   return (
-    <arguments className="homePage">
+    <div className="homePage">
     <div className="wrapper">
         <div className="logo">
             <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt=""/>
@@ -23,12 +23,12 @@ export default function Home() {
             <button className="btn mt-3">Login</button>
         </form>
         <div className="text-center fs-6">
-            <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+            <a href="#">Forget password?</a> or <a href="/register">Sign up</a>
         </div>
     </div>
     
     <BgMove></BgMove>
     <Move/>
-    </arguments>
+    </div>
   );
 }

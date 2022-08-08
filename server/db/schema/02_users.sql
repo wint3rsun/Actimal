@@ -4,7 +4,7 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  experience_points VARCHAR(255) NOT NULL,
-  levels VARCHAR(255) NOT NULL,
+  experience_points integer NOT NULL DEFAULT 0,
+  levels integer NOT NULL DEFAULT 0,
   character_id integer REFERENCES characters(id) ON DELETE CASCADE NOT NULL
 );

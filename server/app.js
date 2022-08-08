@@ -8,6 +8,7 @@ const db = require('./configs/db.config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var unlockedRouter = require('./routes/unlockedAnimals');
 
 var app = express();
 
@@ -19,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter());
-
+app.use('/unlocked', unlockedRouter(db));
 
 
 module.exports = app;

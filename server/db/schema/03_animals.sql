@@ -6,4 +6,4 @@ CREATE TABLE animals (
   description TEXT NOT NULL,
   avatar_url TEXT NOT NULL,
   required_level INTEGER NOT NULL
-)
+);

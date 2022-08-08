@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS characters CASCADE;
+CREATE TABLE characters (
+  id SERIAL PRIMARY KEY NOT NULL,
+  avatar_url VARCHAR(255) NOT NULL,
+  charactor_model VARCHAR(255) NOT NULL
+);

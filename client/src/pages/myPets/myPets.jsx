@@ -27,7 +27,7 @@ export default function MyPets() {
           e.stopPropagation();
         }} className="container">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <Pet open={open}/>
+          <Pet/>
           <Pet /> 
           <Pet /> 
           <Pet /> 

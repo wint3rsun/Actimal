@@ -6,5 +6,5 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   experience_points VARCHAR(255) NOT NULL,
   levels VARCHAR(255) NOT NULL,
-  character_id integer REFERENCES characters(id) ON DELETE CASCADE NOT NULL,
+  character_id integer REFERENCES characters(id) ON DELETE CASCADE NOT NULL
 );

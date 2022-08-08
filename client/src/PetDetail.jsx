@@ -13,7 +13,7 @@ const PetDetail = ({ open, onClose }) => {
         <img src="https://placekitten.com/200/139" alt='#' />
         <div className='detailRight'>
           <p className='closeBtn' onClick={onClose}>
-          <i class="fa fa-times-circle" aria-hidden="true"></i>
+          <i className="fa fa-times-circle" aria-hidden="true"></i>
           </p>
           <div className='content'>
             <h1>Cat Lalalalala</h1>

@@ -20,8 +20,8 @@ export default function TopNav() {
             <li className="nav-item">
             <a href="/myChallenges"><i className="fa fa-bullseye"></i> My Challenges</a>
             </li>
-            <li class="nav-item">
-            <a href="/myPets"><i class="fa fa-paw"></i> My Cats</a>
+            <li className="nav-item">
+            <a href="/myPets"><i className="fa fa-paw"></i> My Cats</a>
             </li>
           </ul>
         </div>

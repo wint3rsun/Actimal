@@ -3,26 +3,26 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 export default function Home() {
   return (
-    <arguments class="homePage">
-    <div class="wrapper">
-        <div class="logo">
+    <arguments className="homePage">
+    <div className="wrapper">
+        <div className="logo">
             <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt=""/>
         </div>
-        <div class="text-center mt-4 name">
+        <div className="text-center mt-4 name">
             Member Login
         </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="fa fa-user" aria-hidden="true"></span>
+        <form className="p-3 mt-3">
+            <div className="form-field d-flex align-items-center">
+                <span className="fa fa-user" aria-hidden="true"></span>
                 <input type="text" name="userName" id="userName" placeholder="Username"/>
             </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fa fa-key" aria-hidden="true"></span>
+            <div className="form-field d-flex align-items-center">
+                <span className="fa fa-key" aria-hidden="true"></span>
                 <input type="password" name="password" id="pwd" placeholder="Password"/>
             </div>
-            <button class="btn mt-3">Login</button>
+            <button className="btn mt-3">Login</button>
         </form>
-        <div class="text-center fs-6">
+        <div className="text-center fs-6">
             <a href="#">Forget password?</a> or <a href="#">Sign up</a>
         </div>
     </div>

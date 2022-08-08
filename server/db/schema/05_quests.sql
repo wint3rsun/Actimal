@@ -7,6 +7,7 @@ CREATE TABLE quests (
   img_url VARCHAR(255) NOT NULL,
   goal INTEGER NOT NULL,
   goal_units VARCHAR(255) NOT NULL,
+  required_level INTEGER NOT NULL,
   base_experience INTEGER NOT NULL,
   first_place_exp_bonus INTEGER NOT NULL,
   second_place_exp_bonus INTEGER NOT NULL,

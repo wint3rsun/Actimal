@@ -14,6 +14,20 @@ const ME = "ME"
 const MYFRIENDS = "FRIENDLIST";
 
 export default function Profile() {
+  const user = {
+    id: 1,
+    username: "username1",
+    password: "password",
+    email: "username1@gmail.com",
+    experience_points: 10,
+    levels: 1,
+    character: {
+      id: 1,
+      avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",
+      charactor_model: "https://img.freepik.com/free-vector/athlete-doing-isolated_1308-38032.jpg?w=996&t=st=1659985157~exp=1659985757~hmac=26a86086e35a3e9dba3bf83ea41b604851f16693a03d025f6c5eb6633f23d0cf"
+    }
+  }
+
   const [mode, setMode] = useState(ME);
 
   const navigate = useNavigate();
@@ -36,8 +50,9 @@ export default function Profile() {
   }
 
   return (
-    <main className="layout d-flex flex-column mx-5 my-3 px-2 border">
-      <button type="button" className="btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
+    <main className="profile-layout">
+      <div className="border mt-3 px-3 py-1 position-relative">
+      <button type="button" className="profile-btn btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
       <nav className="profile d-flex flex-row justify-content-around py-3">
         <p onClick={() => {openTab("me")}} id="me" className="tab active"><FontAwesomeIcon icon={faUser}/>Me</p>
         <p onClick={() => {openTab("my-friends")}} id="my-friends" className="tab"><FontAwesomeIcon icon={faUsers} />My Friends <span>222</span></p>
@@ -45,8 +60,8 @@ export default function Profile() {
       {mode === ME && (
         <div>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <img src="https://cdn.iconscout.com/icon/free/png-256/woman-female-person-avatar-user-31835.png" alt="profile" />
-            <p>Username: Wint3rSun</p>
+            <img className="profile-model-img" src={user.character.charactor_model} alt={`${user.username}'s character model`} />
+            <p>{user.username}</p>
           </div>
           <ProfileFooter />
         </div>)}
@@ -55,6 +70,8 @@ export default function Profile() {
         <div className="tab-item">
           <MyFriends />
         </div>)}
+
+      </div>
     </main>
   );
 }

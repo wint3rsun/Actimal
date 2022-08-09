@@ -1,3 +1,5 @@
+import "./QuickStats.scss"
+
 export default function QuickStats() {
 
   const props = { 
@@ -17,14 +19,12 @@ export default function QuickStats() {
   }
 
   return (
-    <section>
-      <img className="rounded-circle" src={props.user.character.avatar_url} alt={`User ${props.user.username}'s avatar`} /> 
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">{props.user.username}</h5>
-          <h6 className="card-subtitle mb-2 text-muted">{`Level: ${props.user.levels}`}</h6>
-          <p className="card-text">Total Experience: <span>{props.user.experience_points}</span></p>
-        </div>
+    <section className="quickStat">
+      <div className="item">
+        <p className="username">{props.user.username}</p>
+        <img src={props.user.character.avatar_url} alt="user profile" className="avatar" />
+        <p className="text text-muted float-start">level 1</p>
+        <p className="text">total experience: {props.user.experience_points} </p>
       </div>
     </section>
   )

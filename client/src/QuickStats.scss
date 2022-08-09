@@ -1,0 +1,61 @@
+.quickStat {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+  margin-bottom: 5rem;
+  position: sticky;
+  top: 10rem;
+	
+	.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+		position: relative;
+		width: 15rem;
+		height: 10rem;
+		text-align: center;
+		padding: 2.0rem 0 0;
+		margin: 1rem 1rem 1rem;
+		border-radius: 0.5rem;
+		transform-origin: bottom;
+		cursor: pointer;
+		box-shadow:
+    0 0 4rem 0 rgba(black, 0.1),
+    0 1rem 2rem -1rem rgba(black, 0.1);
+		
+		.avatar {
+			position: absolute;
+			top: -2rem;
+			left: 2.5rem;
+			width: 4rem;
+			height: 4rem;
+			border-radius: 50%;
+			background-size: cover;
+			background-position: center;
+			margin-right: 1rem;
+			box-shadow:
+				0 0 1rem 0 rgba(black, 0.2),
+				0 1rem 1rem -0.5rem rgba(black, 0.2);
+		}
+		
+		.username {
+			font-weight: 900;
+			font-size: 1.5rem;
+			margin-bottom: 0.2rem;
+		}
+		
+		.text {
+			font-size: 1.1rem;
+			margin-bottom: 0.5rem;
+      align-self: flex-start;
+      margin-left: 0.5rem;
+		}
+
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+}

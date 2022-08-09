@@ -2,6 +2,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require("cors");
+
+
+
+
 
 // db connection
 const db = require('./configs/db.config');
@@ -13,9 +18,10 @@ var challengesRouter = require('./routes/challenges');
 var animalsRouter = require('./routes/animals');
 var unlockedRouter = require('./routes/unlockedAnimals');
 var challengeParticipants = require('./routes/challengeParticipants');
+var loginRouter = require('./routes/login');
 
 var app = express();
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,5 +35,6 @@ app.use('/challenges', challengesRouter(db));
 app.use('/animals', animalsRouter(db));
 app.use('/unlocked', unlockedRouter(db));
 app.use('/participants', challengeParticipants(db));
+app.use('/login', loginRouter(db));
 
 module.exports = app;

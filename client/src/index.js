@@ -8,13 +8,14 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard/Dashboard";
-import Home from "./pages/home/Home"
+import Home from "./pages/home/Home";
 import MyChallenges from "./pages/myChallenges/MyChallenges";
-import MyPets from "./pages/myPets/MyPets"
+import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
+import Register from "./Registration/Register"
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.scss'
+import './index.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
@@ -27,6 +28,7 @@ root.render(
       <Route path="/myChallenges" element={<MyChallenges />} />
       <Route path="/myPets" element={<MyPets />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   </BrowserRouter>
 );

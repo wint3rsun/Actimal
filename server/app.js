@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var charactersRouter = require('./routes/characters');
 var challengesRouter = require('./routes/challenges');
 var animalsRouter = require('./routes/animals');
+var unlockedRouter = require('./routes/unlockedAnimals');
+
 
 var app = express();
 
@@ -26,6 +28,8 @@ app.use('/users', usersRouter(db));
 app.use('/characters', charactersRouter(db));
 app.use('/challenges', challengesRouter(db));
 app.use('/animals', animalsRouter(db));
+app.use('/unlocked', unlockedRouter(db));
+
 
 
 

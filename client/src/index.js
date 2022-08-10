@@ -1,7 +1,6 @@
 import React from 'react';  
-import { useState, useEffect } from "react";
+
 import ReactDOM from "react-dom/client";
-import socketIOClient from 'socket.io-client';
 import './index.scss';
 import {
   BrowserRouter,
@@ -19,17 +18,6 @@ import Register from "./Registration/Register"
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
-
-useEffect(() => {
-  console.log("TEST")
-  const socket = socketIOClient(ENDPOINT);
-
-  socket.on('connect', () => {
-    console.log("we have connected!");
-
-    })
-  
-}, [])
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")

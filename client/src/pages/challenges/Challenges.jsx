@@ -48,7 +48,7 @@ export default function Challenges() {
     username: "username4",
     email: "username4@gmail.com",
     experience_points: 30,
-    levels: 3,
+    level: 3,
     character: {
       id: 1,
       avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",
@@ -56,7 +56,7 @@ export default function Challenges() {
     }
   });
 
-  const show = (game) => {
+  const showDetail = (game) => {
     document.getElementById("challenge-detail-btn").click();
   }
 
@@ -101,6 +101,7 @@ export default function Challenges() {
   const challengeList = state.challenges.map((challenge) => {
     const quest = state.quests[challenge.quest_id];
     const alreadyJoined = state.user_challenges[challenge.id]? true : false;
+    const isRequiredLevel = user.level >= quest.required_level;
     const item = (
       <ChallengeListItem
         key={challenge.id}
@@ -108,8 +109,9 @@ export default function Challenges() {
         quest={quest}
         onJoin={join}
         onRanking={ranking}
-        onShow={show}
+        onShow={showDetail}
         alreadyJoined={alreadyJoined}
+        isRequiredLevel={isRequiredLevel}
       />
     );
     if (alreadyJoined) {

@@ -1,11 +1,13 @@
 import React from 'react';  
 import ReactDOM from "react-dom/client";
+import socketIOClient from 'socket.io-client';
 import './index.scss';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
+
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/home/Home";
@@ -17,9 +19,22 @@ import Register from "./Registration/Register"
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
 
+useEffect(() => {
+  console.log("TEST")
+  const socket = socketIOClient(ENDPOINT);
+
+  socket.on('connect', () => {
+    console.log("we have connected!");
+
+    })
+  
+}, [])
+
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
+
+
 root.render(
   <BrowserRouter>
     <Routes>

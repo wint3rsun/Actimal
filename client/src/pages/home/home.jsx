@@ -4,9 +4,6 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 
 
-// import Dashboard from "../dashboard/Dashboard";
-
-
 export default function Home() {
   const initialValues = { username: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);

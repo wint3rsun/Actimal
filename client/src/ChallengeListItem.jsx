@@ -22,7 +22,7 @@ export default function ChallengeListItem({challenge, quest, onJoin, onShow, onR
         </div>
       </li>
       <button id="challenge-detail-btn" type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

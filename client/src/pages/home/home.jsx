@@ -12,6 +12,7 @@ export default function Home() {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [user, setUser] = useState({});
   
   
   const handleChange = (e) => {
@@ -41,10 +42,11 @@ export default function Home() {
           body: JSON.stringify(formValues)
         });
         const content = await Response.json();
-        console.log("token",content.jwtToken);
+        console.log("token",content);
         if(content.jwtToken){ 
+          setUser(content);
           console.log('in here successflu');
-          window.location.href = "http://localhost:3002/dashboard";
+          window.location.href = "http://localhost:3002/challenges";
         }
          })();
         

@@ -15,7 +15,7 @@ export default function TopNav() {
             <a href="/profile"><i className="fa fa-fw fa-user" aria-hidden="true"></i> My Profile</a>
             </li>
             <li className="nav-item">
-            <a href="/dashboard"><i className="fa fa-tasks"></i> Dashboard</a>
+            <a href="/challenges"><i className="fa fa-tasks"></i> Challenge Dashboard</a>
             </li>
             <li className="nav-item">
             <a href="/myPets"><i className="fa fa-paw"></i> My Cats</a>

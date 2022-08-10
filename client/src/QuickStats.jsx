@@ -20,8 +20,8 @@ export default function QuickStats({user}) {
       <div className="item">
         <p className="username">{user.username}</p>
         <img src={user.character.avatar_url} alt="user profile" className="avatar" />
-        <p className="text text-muted float-start">{user.level}</p>
-        <p className="text">total experience: {user.experience_points} </p>
+        <p className="text text-muted float-start">Level: {user.level}</p>
+        <p className="text">Total Experience: {user.experience_points} </p>
       </div>
     </section>
   )

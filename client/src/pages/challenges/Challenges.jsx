@@ -10,6 +10,7 @@ import Challenge from "../../Challenge";
 const SHOW_ALL = "SHOW_ALL";
 const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
+const SHOW_AVAILABLE = "SHOW_AVAILABLE"
 
 export default function Challenges() {
   const [mode, setMode] = useState(SHOW_ALL);
@@ -87,16 +88,20 @@ export default function Challenges() {
     setMode(SHOW_RANKING);
   }
 
-  function toggleChallenges() {
-    if(mode === SHOW_ALL) {
+  function toggleChallengesView(view) {
+    if(view === SHOW_ALL) {
+      setMode(SHOW_ALL);
+    }
+    if (view === SHOW_MY_CHALLENGES) {
       setMode(SHOW_MY_CHALLENGES);
     }
-    if (mode === SHOW_MY_CHALLENGES) {
-      setMode(SHOW_ALL);
+    if (view === SHOW_AVAILABLE) {
+      setMode(SHOW_AVAILABLE);
     }
   }
 
   const myChallengeList = [];
+  const availableChallenges = [];
 
   const challengeList = state.challenges.map((challenge) => {
     const quest = state.quests[challenge.quest_id];
@@ -114,12 +119,13 @@ export default function Challenges() {
         isRequiredLevel={isRequiredLevel}
       />
     );
+
     if (alreadyJoined) {
       myChallengeList.push(item);
-      return item;
-    } else {
-      return item;
+    } else if (!alreadyJoined && isRequiredLevel) {
+      availableChallenges.push(item);
     }
+    return item;
   });
 
   return (
@@ -131,29 +137,49 @@ export default function Challenges() {
         
         <div className="mx-5 my-5">
           <QuickStats user={user} />
-          <button onClick={toggleChallenges} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
+          <h1>All Challenges</h1>
+          <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> My Challenges</button>
+          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
         </div>
 
         <div className="mx-5 my-5">
           {challengeList}
         </div>
-        </div> )}
+        </div>
+      )}
 
       { mode === SHOW_MY_CHALLENGES && (
         <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
             <QuickStats user={user} />
-            <button onClick={toggleChallenges} className="btn btn-primary"><i className="fa fa-bullseye"></i>Show All Challenges</button>
+            <h1>My Challenges</h1>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Show All Challenges</button>
+            <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
           </div>
           <div className="mx-5 my-5">
             {myChallengeList}
           </div>
-        </div> )}
+        </div>
+      )}
 
       { mode === SHOW_RANKING && (
           <div className="d-flex flex-row justify-content-between border">
             <Challenge />
           </div>
+      )}
+
+      { mode === SHOW_AVAILABLE && (
+        <div className="d-flex flex-row justify-content-between border">     
+          <div className="mx-5 my-5">
+            <QuickStats user={user} />
+            <h1>Available Challenges</h1>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Show All Challenges</button>
+            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
+          </div>
+          <div className="mx-5 my-5">
+            {myChallengeList}
+          </div>
+        </div>
       )}
 
       <Footer/>

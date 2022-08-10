@@ -34,7 +34,7 @@ export default function Challenge(props) {
 
         <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
           
-            <Chat />
+            <Chat username={"username1"} challenge_id={1} />
           
         </div>
         

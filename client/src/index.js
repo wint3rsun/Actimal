@@ -9,9 +9,8 @@ import {
 } from "react-router-dom";
 
 
-import Dashboard from "./pages/dashboard/Dashboard";
+import Challenges from "./pages/challenges/Challenges";
 import Home from "./pages/home/Home";
-import MyChallenges from "./pages/myChallenges/MyChallenges";
 import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
 import Register from "./Registration/Register"
@@ -26,8 +25,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/myChallenges" element={<MyChallenges />} />
+      <Route path="/challenges" element={<Challenges />} />
       <Route path="/myPets" element={<MyPets />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/register" element={<Register />} />

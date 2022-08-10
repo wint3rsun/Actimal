@@ -18,9 +18,6 @@ export default function TopNav() {
             <a href="/dashboard"><i className="fa fa-tasks"></i> Dashboard</a>
             </li>
             <li className="nav-item">
-            <a href="/myChallenges"><i className="fa fa-bullseye"></i> My Challenges</a>
-            </li>
-            <li className="nav-item">
             <a href="/myPets"><i className="fa fa-paw"></i> My Cats</a>
             </li>
           </ul>

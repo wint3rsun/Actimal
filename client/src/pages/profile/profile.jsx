@@ -63,7 +63,7 @@ export default function Profile() {
             <img className="profile-model-img" src={user.character.charactor_model} alt={`${user.username}'s character model`} />
             <p>{user.username}</p>
           </div>
-          <ProfileFooter />
+          <ProfileFooter user={user} />
         </div>)}
 
       {mode === MYFRIENDS && (

@@ -2,20 +2,34 @@ import React from "react";
 
 import "./ChallengeListItem.scss"
 
-export default function ChallengeListItem({challenge, quest, onJoin, onShow, onRanking, alreadyJoined}) {
-  const joinButtonClasses = alreadyJoined? "btn btn-secondary disabled" : "btn btn-primary";
+export default function ChallengeListItem({challenge, quest, onJoin, onShow, onRanking, alreadyJoined, isRequiredLevel}) {
+  const joinButtonClasses = alreadyJoined || !isRequiredLevel? "btn btn-secondary disabled" : "btn btn-primary";
+  const viewableClasses = !isRequiredLevel? "disabled" : "";
 
   return (
     <section className="challenge-list-section d-flex flex-row">
       <img className="challenge-list-img" src={quest.img_url}alt="challenge" />
       <li className="card">
-        <div className="card-body">
+        <div className={`card-body`}>
+          {isRequiredLevel && (
+          <>
           <h5 className="card-title">{quest.name}</h5>
           <p className="card-text">{quest.description}</p>
           <p className="card-text">{`Start Date: ${challenge.start_date}`}</p>
+          </>
+          )}
+
+          {!isRequiredLevel && (
+            <>
+            <h5 className="card-title">Your Level is too Low</h5>
+            <p className="card-text">Please Level Up To See this Information</p>
+            <p className="card-text">{`Start Date: When you level up!`}</p>
+            </>
+          )}
+
           <div className="d-flex flex-row justify-content-end">
             <a onClick={()=>onJoin(challenge.id)} className={`mx-2 ${joinButtonClasses}`}>Join</a>
-            <a onClick={()=>onShow(challenge.id)} className="btn btn-primary mx-2">See Details</a>
+            <a onClick={()=>onShow(challenge.id)} className={`btn btn-primary mx-2 ${viewableClasses}`}>See Details</a>
             <a onClick={()=>onRanking(challenge.id)} className="btn btn-primary mx-2">See Ranking</a>
           </div>
           <br />
@@ -31,6 +45,7 @@ export default function ChallengeListItem({challenge, quest, onJoin, onShow, onR
             </div>
             <div className="modal-body">
               <h1>Challenge Type</h1>
+                <p>{quest.required_level}</p> 
               <p>
                 goal: 10000,
                 goal_units: "steps",

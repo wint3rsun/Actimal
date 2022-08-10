@@ -1,11 +1,10 @@
+require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const cors = require("cors");
 
-
-
+// app.set('port', port);
 
 
 // db connection
@@ -21,7 +20,60 @@ var challengeParticipants = require('./routes/challengeParticipants');
 var loginRouter = require('./routes/login');
 
 var app = express();
+
+//socket io
+const http = require('http');
+const cors = require('cors');
+const {Server} = require('socket.io');
 app.use(cors());
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3002",
+    methods: ["GET", "POST"],
+  },
+});
+
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+var port = normalizePort(process.env.PORT || '3000');
+server.listen(port,()=>{
+  console.log("server runnings");
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,4 +88,14 @@ app.use('/unlocked', unlockedRouter(db));
 app.use('/participants', challengeParticipants(db));
 app.use('/login', loginRouter(db));
 
+
+
 module.exports = app;
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

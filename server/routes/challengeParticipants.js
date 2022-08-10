@@ -18,6 +18,28 @@ module.exports = (db) => {
     });
   });
 
+  router.get('/', (req, res) => {
+    const queryString = `
+      SELECT *
+      FROM game_challenge_participants
+      WHERE users_id = $1
+    `;
+
+    const queryParams = [req.query.user];
+
+    db.query(queryString, queryParams)
+    .then((results) => {
+      const myChallenges = {};
+      results.rows.forEach(element => {
+        myChallenges[element.game_challenges_id] = element;
+      });
+      res.json(myChallenges);
+    })
+    .catch((err) => {
+      res.status(500).json({error: err.message});
+    });
+  });
+
   // create game challenge participant
   router.put('/new', (req, res) => {
     const queryString = `

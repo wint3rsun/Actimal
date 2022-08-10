@@ -153,7 +153,7 @@ export default function Challenges() {
           <div className="mx-5 my-5">
             <QuickStats user={user} />
             <h1>My Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Show All Challenges</button>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
             <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
           </div>
           <div className="mx-5 my-5">
@@ -173,7 +173,7 @@ export default function Challenges() {
           <div className="mx-5 my-5">
             <QuickStats user={user} />
             <h1>Available Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Show All Challenges</button>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
             <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
           </div>
           <div className="mx-5 my-5">

@@ -1,11 +1,12 @@
 import React from 'react';  
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import socketIOClient from 'socket.io-client';
 import './index.scss';
 import {
   BrowserRouter,
   Routes,
-  Route,
+  Route
 } from "react-router-dom";
 
 
@@ -33,8 +34,6 @@ useEffect(() => {
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
-
-
 root.render(
   <BrowserRouter>
     <Routes>

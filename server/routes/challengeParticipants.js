@@ -42,13 +42,16 @@ module.exports = (db) => {
 
   // create game challenge participant
   router.put('/new', (req, res) => {
+    const {game_challenge_id, user_id} = req.body.game
     const queryString = `
     INSERT INTO game_challenge_participants (game_challenges_id ,users_id)
     VALUES ($1, $2)
     RETURNING *
     `;
+    console.log(req.body.game_challenge_id);
+    console.log(req.body.user_id);
 
-    db.query(queryString, [req.body.game_challenge_id, req.body.user_id])
+    db.query(queryString, [game_challenge_id, user_id])
     .then((results) => {
       res.json(results.rows);
     })

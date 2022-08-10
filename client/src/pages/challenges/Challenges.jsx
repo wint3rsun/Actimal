@@ -177,7 +177,7 @@ export default function Challenges() {
             <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
           </div>
           <div className="mx-5 my-5">
-            {myChallengeList}
+            {availableChallenges}
           </div>
         </div>
       )}

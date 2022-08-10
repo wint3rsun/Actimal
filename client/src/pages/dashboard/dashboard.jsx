@@ -99,7 +99,7 @@ export default function Dashboard() {
 
 
   return (
-    <div>
+    <main>
       <TopNav/>
       <div className="d-flex flex-row justify-content-between border">
         
@@ -112,6 +112,6 @@ export default function Dashboard() {
         </div>
       </div>
       <Footer/>
-    </div>
+    </main>
   );
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import ProfileFooter from "./ProfileFooter";
 import MyFriends from "./MyFriends";
@@ -13,22 +14,12 @@ import "./Profile.scss"
 const ME = "ME"
 const MYFRIENDS = "FRIENDLIST";
 
-export default function Profile() {
-  const user = {
-    id: 1,
-    username: "username1",
-    password: "password",
-    email: "username1@gmail.com",
-    experience_points: 10,
-    level: 1,
-    character: {
-      id: 1,
-      avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",
-      charactor_model: "https://img.freepik.com/free-vector/athlete-doing-isolated_1308-38032.jpg?w=996&t=st=1659985157~exp=1659985757~hmac=26a86086e35a3e9dba3bf83ea41b604851f16693a03d025f6c5eb6633f23d0cf"
-    }
-  }
-
+export default function Profile({user, characters}) {
   const [mode, setMode] = useState(ME);
+  const [level, setLevel] = useState({});
+
+  const character = characters[user.character_id];
+  user["character"] = character;
 
   const navigate = useNavigate();
 
@@ -49,6 +40,15 @@ export default function Profile() {
 
   }
 
+  useEffect(() => {
+    const userChallengesURL = "http://localhost:8080/levels";
+
+    axios.get(userChallengesURL)
+    .then((result) => {
+        setLevel(result.data[user.level]);
+    })
+  }, []);
+
   return (
     <main className="profile-layout">
       <div className="border mt-3 px-3 py-1 position-relative">
@@ -60,10 +60,10 @@ export default function Profile() {
       {mode === ME && (
         <div>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <img className="profile-model-img" src={user.character.charactor_model} alt={`${user.username}'s character model`} />
+            <img className="profile-model-img" src={character.charactor_model} alt={`${user.username}'s character model`} />
             <p>{user.username}</p>
           </div>
-          <ProfileFooter user={user} />
+          <ProfileFooter user={user} level={level} />
         </div>)}
 
       {mode === MYFRIENDS && (

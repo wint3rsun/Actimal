@@ -7,7 +7,7 @@ export default function QuickStats({user}) {
   //   username: "username4",
   //   email: "username4@gmail.com",
   //   experience_points: 30,
-  //   levels: 3,
+  //   level: 3,
   //   character: {
   //     id: 1,
   //     avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",

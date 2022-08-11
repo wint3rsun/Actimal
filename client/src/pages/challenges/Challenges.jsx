@@ -166,7 +166,7 @@ export default function Challenges() {
 
       { mode === SHOW_RANKING && (
           <div className="d-flex flex-row justify-content-between border">
-            <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]}/>
+            <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user}/>
           </div>
       )}
 

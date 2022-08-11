@@ -1,11 +1,11 @@
 import ProgressBar from "./pages/profile/ProgressBar";
 
-export default function RankListItem(props) {
+export default function RankListItem({user, character, position}) {
   return (
     <div className="item">
-      <p className="position">{props.position}</p>
-      <img src="https://i.pravatar.cc/400?img=12" alt="player avatar" className="avatar" />
-      <p className="username">Username A</p>
+      <p className="position">{position}</p>
+      <img src={character.avatar_url} alt={`player ${user.username}'s avatar`} className="avatar" />
+      <p className="username">{user.username}</p>
       <ProgressBar />
     </div>
   )

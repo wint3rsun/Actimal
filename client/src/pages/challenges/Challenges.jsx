@@ -22,6 +22,8 @@ export default function Challenges() {
     user_challenges: {}
   });
 
+  const [currentChallenge, setCurrentChallenge] = useState({});
+
   useEffect(() => {
     const challengesURL = "http://localhost:8080/challenges";
     const questsURL = "http://localhost:8080/challenges/quests";
@@ -38,7 +40,7 @@ export default function Challenges() {
         ...prev,
         challenges: all[0].data,
         quests: all[1].data,
-        characters: all[2],
+        characters: all[2].data,
         user_challenges: all[3].data
       }));
     });
@@ -83,8 +85,8 @@ export default function Challenges() {
     .catch(err=>console.log(err));
   }
 
-  const ranking = (game) => {
-    alert(`clicked see ranking ${game}`);
+  const ranking = (game_challenge) => {
+    setCurrentChallenge(game_challenge);
     setMode(SHOW_RANKING);
   }
 
@@ -164,7 +166,7 @@ export default function Challenges() {
 
       { mode === SHOW_RANKING && (
           <div className="d-flex flex-row justify-content-between border">
-            <Challenge />
+            <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]}/>
           </div>
       )}
 

@@ -1,23 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ProgressBar from "./pages/profile/ProgressBar"
-import RankList from "./RankList";
+import axios from "axios";
 import io from 'socket.io-client';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
-// import Chat from "./Chat";
+
+import RankList from "./RankList";
 
 import "./Challenge.scss";
 import Screen from "./Screen";
 
 const socket = io.connect("http://localhost:8080");
 
-
-
-export default function Challenge(props) {
+export default function Challenge({challenge, quest, characters, user}) {
+  //for close button navigation
   const navigate = useNavigate();
-  const [username, setUsername] = useState('username1');
-  const [room, setRoom] = useState(1);
+
+  const [username, setUsername] = useState(user.username);
+  const [room, setRoom] = useState(challenge.id);
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
@@ -30,19 +31,41 @@ export default function Challenge(props) {
       setShowChat(true);
     }
   };
+  
+  const [participants, setParticipants] = useState({
+    top3: [],
+    bottom: []
+  });
+
+  useEffect(() => {
+    const participantsURL = `http://localhost:8080/participants/${challenge.id}`;
+
+    axios.get(participantsURL)
+    .then((res) => {
+      const top3 = res.data.filter((p, index) => {if (index < 3) return p});
+      const participants = res.data.filter((p,index) => {if (index >= 3) return p});
+      setParticipants({
+        top3: top3,
+        bottom: participants
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
 
 
   return (
     <main className="challenge position-relative">
       <button type="button" className="btn-close position-absolute" aria-label="Close" onClick={() => navigate(0)}></button>
       <section className="challenge-header mt-5">
-        <h1>I am a Challenge!</h1>
+        <h1>{quest.name}</h1>
         <h2>Leaderboard</h2>
-        <ProgressBar />
       </section>
 
       <section className="position-relative">
-        <RankList />
+        <RankList participants={participants} characters={characters} max={quest.goal} unit={quest.goal_units}/>
       </section>
 
       <section className="d-flex flex-row-reverse mb-3">

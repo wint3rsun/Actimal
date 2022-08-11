@@ -20,7 +20,7 @@ export default function Profile() {
     password: "password",
     email: "username1@gmail.com",
     experience_points: 10,
-    levels: 1,
+    level: 1,
     character: {
       id: 1,
       avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",

@@ -1,18 +1,32 @@
 import "./ProgressBar.scss"
 
-export default function ProgressBar() {
+export default function ProgressBar({min, max, current, unit}) {
   const props = {
     min: 0,
     max: 100,
     current: 10,
     unit: 'EXP'
   }
+  if(!min) {
+    min = 0;
+  }
+  if(!max) {
+    max = 1000;
+  }
+
+  if(!current) {
+    current = 0;
+  }
+
+  if(!unit) {
+    unit = 'EXP'
+  }
   return (
     <div className="progress-container d-flex flex-column">
       <div className="progress">
-        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={props.current} aria-valuemin={props.min} aria-valuemax={props.max} style={{width:`${props.current/props.max*100}%`}}></div>
+        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={current} aria-valuemin={min} aria-valuemax={max} style={{width:`${current/max*100}%`}}></div>
       </div>
-      <p>{`${props.unit}: ${props.current} / ${props.max}`}</p>
+      <p>{`${unit}: ${current} / ${max}`}</p>
     </div>
   )
 }

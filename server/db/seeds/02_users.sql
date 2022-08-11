@@ -4,3 +4,7 @@ INSERT INTO users (username,email, password,experience_points,levels,character_i
 INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username4', 'username4@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',30,3,1);
 INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username5', 'username5@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',40,4,2);
 INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username6', 'username6@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',50,5,3);
+INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username7', 'username7@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',50,5,3);
+INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username8', 'username8@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',50,5,3);
+INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username9', 'username9@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',50,5,3);
+INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ('username10', 'username10@gmail.com', '$2a$10$0.AKQqmMz0SZJwRBvfuO.e7rebFqxAXG9ekNP92moiXscZGdsKM.e',50,5,3);

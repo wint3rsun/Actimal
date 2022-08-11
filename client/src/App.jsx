@@ -35,11 +35,13 @@ function App() {
     const challengesURL = "http://localhost:8080/challenges";
     const questsURL = "http://localhost:8080/challenges/quests";
     const charactersURL = "http://localhost:8080/characters";
+    const levelsURL = "http://localhost:8080/levels";
 
     Promise.all([
       axios.get(challengesURL),
       axios.get(questsURL),
       axios.get(charactersURL),
+      axios.get(levelsURL)
     ]).then((all) => {
       
         setState(prev => ({
@@ -47,6 +49,7 @@ function App() {
           challenges: all[0].data,
           quests: all[1].data,
           characters: all[2].data,
+          levels: all[3].data
         }));
         setflag(true);
     });
@@ -59,7 +62,7 @@ function App() {
       <Route path="/" element={<Home setUser={setUser} state={state} />}/>
       <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data} flag={flag}/> : <Home setUser={setUser}/>} />
       <Route path="/myPets" element={data ? <MyPets user={data}/> : <Home setUser={setUser}/>} />
-      <Route path="/profile" element={data ? <Profile user={data} characters={state.characters}/> : <Home setUser={setUser} />} />
+      <Route path="/profile" element={data ? <Profile user={data} characters={state.characters} levels={state.levels} flag={flag}/> : <Home setUser={setUser} />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   </BrowserRouter>

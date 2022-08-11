@@ -11,7 +11,7 @@ export default function ProgressBar({min, max, current, unit}) {
     min = 0;
   }
   if(!max) {
-    max = 1000;
+    max = 0;
   }
 
   if(!current) {

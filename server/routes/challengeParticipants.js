@@ -4,9 +4,12 @@ module.exports = (db) => {
   // sends all challenge participants for game_id
   router.get('/:game_id', (req, res) => {
     const queryString = `
-    SELECT *
+    SELECT game_challenge_participants.*, users.*
     FROM game_challenge_participants
+    JOIN users 
+    ON game_challenge_participants.users_id = users.id
     WHERE game_challenges_id = $1
+    ORDER BY game_challenge_participants.progress DESC
     `;
 
     db.query(queryString, [req.params.game_id])

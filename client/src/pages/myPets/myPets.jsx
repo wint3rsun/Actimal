@@ -5,20 +5,8 @@ import UnlockPets from "./UnlockPets";
 import Footer from "../../Footer";
 import "./myPets.scss";
 
-export default function MyPets() {
-  const user = {
-    id: 4,
-    username: "username4",
-    email: "username4@gmail.com",
-    experience_points: 30,
-    level: 3,
-    character: {
-      id: 1,
-      avatar_url: "https://robohash.org/340c525dec61deba2666cb58c149840e?set=set1&bgset=&size=400x400",
-      charactor_model: "https://img.freepik.com/free-vector/athlete-doing-isolated_1308-38032.jpg?w=996&t=st=1659985157~exp=1659985757~hmac=26a86086e35a3e9dba3bf83ea41b604851f16693a03d025f6c5eb6633f23d0cf"
-    }
-  };
-
+export default function MyPets({user}) {
+ 
   const [open, setOpen] = useState(true);
   const [animals, setAnimals] = useState([]);
   useEffect(() => {
@@ -30,8 +18,6 @@ export default function MyPets() {
   }, []);
 
  const list = animals.map(animal=>{
-  console.log(animal.required_level);
-  console.log("user's level",user.level);
   if(animal.required_level > user.level){
     return <UnlockPets key={animal.id} pet={animal}/>
   }

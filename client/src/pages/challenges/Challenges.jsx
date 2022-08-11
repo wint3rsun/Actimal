@@ -12,9 +12,9 @@ const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
 
-export default function Challenges({user, state, setState}) {
+export default function Challenges({user, state, setState,flag}) {
   const [mode, setMode] = useState(SHOW_ALL);
-  const [flag, setflag] = useState(false);
+  
   const [currentChallenge, setCurrentChallenge] = useState({});
   
   useEffect(() => {
@@ -28,9 +28,11 @@ export default function Challenges({user, state, setState}) {
           user_challenges: all[0].data
         })
       );
-      setflag(true);
+      
     });
   }, []);
+
+  
   
   
    (async () => {

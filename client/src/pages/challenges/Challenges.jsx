@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 
 import TopNav from "../../TopNav";
 import Footer from "../../Footer";
@@ -12,63 +12,30 @@ const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
 
-export default function Challenges({user}) {
-  // console.log("data",data);
+export default function Challenges({user, state, setState}) {
   const [mode, setMode] = useState(SHOW_ALL);
   const [flag, setflag] = useState(false);
-  // let flag = false;
-
-  const [state, setState] = useState({
-    challenges: [],
-    quests: {},
-    characters: {},
-    user_challenges: {}
-  });
-
-  // const [user, setUser] = useState({});
-
   const [currentChallenge, setCurrentChallenge] = useState({});
-
+  
   useEffect(() => {
-    const challengesURL = "http://localhost:8080/challenges";
-    const questsURL = "http://localhost:8080/challenges/quests";
-    const charactersURL = "http://localhost:8080/characters"
     const userChallengesURL = `http://localhost:8080/participants/?user=${user.id}`;
 
     Promise.all([
-      axios.get(challengesURL),
-      axios.get(questsURL),
-      axios.get(charactersURL),
       axios.get(userChallengesURL)
     ]).then((all) => {
-      
-
         setState(prev => ({
           ...prev,
-          challenges: all[0].data,
-          quests: all[1].data,
-          characters: all[2].data,
-          user_challenges: all[3].data
-        }
-        )
-      
+          user_challenges: all[0].data
+        })
       );
       setflag(true);
-    
-      
-
-    })
-    
+    });
   }, []);
   
   
-  
    (async () => {
-       
-        if(state.challenges[0]){
-          user['character'] = state.characters[user.character_id];
-          
-
+      if(state.challenges[0]){
+        user['character'] = state.characters[user.character_id];
         }
     })();
   

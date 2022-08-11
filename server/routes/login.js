@@ -31,7 +31,7 @@ module.exports = (db) => {
         id:user.rows[0].id,
         username: user.rows[0].username,
         experience_points:user.rows[0].experience_points,
-        levels: user.rows[0].levels,
+        level: user.rows[0].level,
         character_id: user.rows[0].character_id,
         jwtToken:jwtToken
       }

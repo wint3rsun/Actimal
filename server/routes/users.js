@@ -11,13 +11,13 @@ module.exports = (db) => {
 
   router.put("/", (req, res) => {
     
-    const { username,email, password,experience_points,levels,character_id } = req.body;
+    const { username,email, password,experience_points,level,character_id } = req.body;
 
     db.query(
       `
-      INSERT INTO users (username,email, password,experience_points,levels,character_id) VALUES ($1, $2, $3,$4,$5,$6)
+      INSERT INTO users (username,email, password,experience_points,level,character_id) VALUES ($1, $2, $3,$4,$5,$6)
     `,
-      [username,email, password,experience_points,levels,character_id]
+      [username,email, password,experience_points,level,character_id]
     )
       .then(() => {
         setTimeout(() => {

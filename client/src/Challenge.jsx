@@ -45,11 +45,10 @@ export default function Challenge({challenge, quest, characters}) {
       <section className="challenge-header mt-5">
         <h1>{quest.name}</h1>
         <h2>Leaderboard</h2>
-        <ProgressBar />
       </section>
 
       <section className="position-relative">
-        <RankList participants={participants} characters={characters}/>
+        <RankList participants={participants} characters={characters} max={quest.goal} unit={quest.goal_units}/>
       </section>
 
       <section className="d-flex flex-row-reverse mb-3">

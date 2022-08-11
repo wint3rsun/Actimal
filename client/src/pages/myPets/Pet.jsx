@@ -15,7 +15,7 @@ export default function Pet(props) {
             <div className="btn-group">
                <button onClick={() => setOpenDetail(true)} type="button" className="btn btn-sm btn-outline-secondary">View</button>
             </div>
-            <small className="text-muted">some info</small>
+            <small className="text-muted">Level {props.pet.required_level} Unlocked</small>
           </div> 
         </div>
       </div> 

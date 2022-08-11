@@ -4,12 +4,11 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 
 
-export default function Home({setUser}) {
+export default function Home({setUser,state}) {
   const initialValues = { username: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  // const [user, setUser] = useState({});
   
   
   const handleChange = (e) => {
@@ -24,11 +23,7 @@ export default function Home({setUser}) {
   };
 
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log('submit successflu');
-      // const { username, password } = initialValues;
-      console.log('submit',formValues);
       (async () => {
         const Response = await fetch('http://localhost:8080/login', {
           method: 'POST',
@@ -44,7 +39,10 @@ export default function Home({setUser}) {
           setUser(content);
           console.log('in here successflu');
           localStorage.setItem('data', JSON.stringify(content));
-          window.location.href = "http://localhost:3002/challenges";
+          if(state.challenges[0]){
+            window.location.href = "http://localhost:3002/challenges";
+            }
+          
           
         }
          })();
@@ -55,7 +53,6 @@ export default function Home({setUser}) {
   
   const validate = (values) => {
     const errors = {};
-    // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.username) {
       errors.username = "Username is required!";
     }

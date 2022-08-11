@@ -20,6 +20,7 @@ import './index.scss';
 
 function App() {
   const [user, setUser] = useState({});
+  const [flag, setflag] = useState(false);
   const [state, setState] = useState({
     challenges: [],
     quests: {},
@@ -47,6 +48,7 @@ function App() {
           quests: all[1].data,
           characters: all[2].data,
         }));
+        setflag(true);
     });
   }, []);
   
@@ -54,9 +56,9 @@ function App() {
   return (
   <BrowserRouter>
     <Routes >
-      <Route path="/" element={<Home setUser={setUser}/>}/>
-      <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data}/> : <Home setUser={setUser}/>} />
-      <Route path="/myPets" element={data ? <MyPets state={state}/> : <Home setUser={setUser}/>} />
+      <Route path="/" element={<Home setUser={setUser} state={state} />}/>
+      <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data} flag={flag}/> : <Home setUser={setUser}/>} />
+      <Route path="/myPets" element={data ? <MyPets user={data}/> : <Home setUser={setUser}/>} />
       <Route path="/profile" element={data ? <Profile user={data} characters={state.characters}/> : <Home setUser={setUser} />} />
       <Route path="/register" element={<Register />} />
     </Routes>

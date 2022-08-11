@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import ProfileFooter from "./ProfileFooter";
 import MyFriends from "./MyFriends";
@@ -14,9 +13,8 @@ import "./Profile.scss"
 const ME = "ME"
 const MYFRIENDS = "FRIENDLIST";
 
-export default function Profile({user, characters}) {
+export default function Profile({user, characters, levels, flag}) {
   const [mode, setMode] = useState(ME);
-  const [level, setLevel] = useState({});
 
   const character = characters[user.character_id];
   user["character"] = character;
@@ -37,20 +35,11 @@ export default function Profile({user, characters}) {
     if (tabName === "my-friends") {
       setMode(MYFRIENDS)
     }
-
   }
-
-  useEffect(() => {
-    const userChallengesURL = "http://localhost:8080/levels";
-
-    axios.get(userChallengesURL)
-    .then((result) => {
-        setLevel(result.data[user.level]);
-    })
-  }, []);
 
   return (
     <main className="profile-layout">
+      {flag && <>
       <div className="border mt-3 px-3 py-1 position-relative">
       <button type="button" className="profile-btn btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
       <nav className="profile d-flex flex-row justify-content-around py-3">
@@ -63,15 +52,16 @@ export default function Profile({user, characters}) {
             <img className="profile-model-img" src={character.charactor_model} alt={`${user.username}'s character model`} />
             <p>{user.username}</p>
           </div>
-          <ProfileFooter user={user} level={level} />
+          <ProfileFooter user={user} level={levels[user.level]} />
         </div>)}
 
       {mode === MYFRIENDS && (
         <div className="tab-item">
           <MyFriends />
         </div>)}
-
       </div>
+      </>}
+
     </main>
   );
 }

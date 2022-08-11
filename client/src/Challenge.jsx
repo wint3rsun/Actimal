@@ -72,14 +72,12 @@ export default function Challenge({challenge, quest, characters, user}) {
         <button onClick={joinRoom} className="btn btn-primary d-flex flex-column align-items-center mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"><FontAwesomeIcon icon={faMessage} /> I am Chat!</button>
 
         <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-
-          {/* <Chat username={"username1"} challenge_id={1} /> */}
           <div className="App">
             {!showChat ? (
               <div className="joinChatContainer">
               </div>
             ) : (
-              <Screen socket={socket} username={username} room={room} />
+              <Screen key = {room} socket={socket} username={username} room={room} />
             )}
           </div>
 

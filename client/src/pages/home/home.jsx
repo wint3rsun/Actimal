@@ -4,12 +4,12 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 
 
-export default function Home() {
+export default function Home({setUser}) {
   const initialValues = { username: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   
   
   const handleChange = (e) => {
@@ -39,11 +39,13 @@ export default function Home() {
           body: JSON.stringify(formValues)
         });
         const content = await Response.json();
-        console.log("token",content);
+        console.log("user",content);
         if(content.jwtToken){ 
           setUser(content);
           console.log('in here successflu');
+          localStorage.setItem('data', JSON.stringify(content));
           window.location.href = "http://localhost:3002/challenges";
+          
         }
          })();
         

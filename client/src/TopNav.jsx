@@ -1,6 +1,10 @@
 
 import "./topNav.scss";
 export default function TopNav() {
+  
+  const logout = async () => {
+    localStorage.clear();
+  };
   return (
 
     <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -23,7 +27,7 @@ export default function TopNav() {
           </ul>
         </div>
         <ul className="nav justify-content-end">
-            <li className="nav-item"><a className="nav-link" href="/"><i className="fa fa-sign-out"></i> Logout</a></li>
+            <li className="nav-item"><a onClick={logout} className="nav-link" href="/"><i className="fa fa-sign-out"></i> Logout</a></li>
           </ul>
       </div>
     </nav>

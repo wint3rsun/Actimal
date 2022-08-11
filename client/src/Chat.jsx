@@ -5,14 +5,18 @@ import Screen from "./Screen";
 
 const socket = io.connect("http://localhost:8080");
 
-function Chat() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+function Chat(props) {
+  const [username, setUsername] = useState(props.username);
+  const [room, setRoom] = useState(props.challenge_id);
   const [showChat, setShowChat] = useState(false);
 
-  const joinRoom = () => {
+  const joinRoom = async() => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+      const data = {
+        room: room,
+        author: username
+      };
+      await socket.emit("join_room", data);
       setShowChat(true);
     }
   };
@@ -21,22 +25,7 @@ function Chat() {
     <div className="App">
       {!showChat ? (
         <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
-          <input
-            type="text"
-            placeholder="John..."
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Room ID..."
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-          />
-          <button onClick={joinRoom}>Join A Room</button>
+          <button onClick={joinRoom}>Start the chat</button>
         </div>
       ) : (
         <Screen socket={socket} username={username} room={room} />

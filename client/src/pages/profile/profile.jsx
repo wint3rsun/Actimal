@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ProfileFooter from "./ProfileFooter";
@@ -13,11 +13,8 @@ import "./Profile.scss"
 const ME = "ME"
 const MYFRIENDS = "FRIENDLIST";
 
-export default function Profile({user, characters, levels, flag}) {
+export default function Profile({user, characters, levels}) {
   const [mode, setMode] = useState(ME);
-
-  const character = characters[user.character_id];
-  user["character"] = character;
 
   const navigate = useNavigate();
 
@@ -39,7 +36,6 @@ export default function Profile({user, characters, levels, flag}) {
 
   return (
     <main className="profile-layout">
-      {flag && <>
       <div className="border mt-3 px-3 py-1 position-relative">
       <button type="button" className="profile-btn btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
       <nav className="profile d-flex flex-row justify-content-around py-3">
@@ -49,7 +45,7 @@ export default function Profile({user, characters, levels, flag}) {
       {mode === ME && (
         <div>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <img className="profile-model-img" src={character.charactor_model} alt={`${user.username}'s character model`} />
+            <img className="profile-model-img" src={user.character.charactor_model} alt={`${user.username}'s character model`} />
             <p>{user.username}</p>
           </div>
           <ProfileFooter user={user} level={levels[user.level]} />
@@ -60,8 +56,6 @@ export default function Profile({user, characters, levels, flag}) {
           <MyFriends />
         </div>)}
       </div>
-      </>}
-
     </main>
   );
 }

@@ -1,9 +1,10 @@
 
 import "./topNav.scss";
-export default function TopNav() {
+export default function TopNav({setUser}) {
   
   const logout = async () => {
     localStorage.clear();
+    setUser({});
   };
   return (
 

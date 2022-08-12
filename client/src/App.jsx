@@ -3,7 +3,8 @@ import axios from "axios"
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 
 import './index.scss';
@@ -13,23 +14,20 @@ import Home from './pages/home/Home';
 import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
 import Register from "./Registration/Register"
+import Sandbox from "./pages/challenges/sandbox/Sandbox";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
 
 
 function App() {
-  const [user, setUser] = useState({});
-  const [flag, setflag] = useState(false);
+  const [user, setUser] = useState();
   const [state, setState] = useState({
     challenges: [],
     quests: {},
     characters: {},
     user_challenges: {}
   });
-
-  const info = localStorage.getItem('data');
-  const data = JSON.parse(info);
 
   useEffect(() => {
     const challengesURL = "http://localhost:8080/challenges";
@@ -50,20 +48,26 @@ function App() {
           quests: all[1].data,
           characters: all[2].data,
           levels: all[3].data
-        }));
-        setflag(true);
-    });
+        }))
+
+        if(localStorage.getItem('data')) {
+          const newUser = JSON.parse(localStorage.getItem('data'));
+          newUser["character"] = all[2].data[newUser.character_id];
+          setUser(newUser);
+        };
+    })
   }, []);
   
 
   return (
   <BrowserRouter>
     <Routes >
-      <Route path="/" element={<Home setUser={setUser} state={state} />}/>
-      <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data} flag={flag}/> : <Home setUser={setUser}/>} />
-      <Route path="/myPets" element={data ? <MyPets user={data}/> : <Home setUser={setUser}/>} />
-      <Route path="/profile" element={data ? <Profile user={data} characters={state.characters} levels={state.levels} flag={flag}/> : <Home setUser={setUser} />} />
+      <Route path="/" element={user ? <Navigate to="/challenges" /> : <Home setUser={setUser} state={state} />}/>
+      <Route path="/challenges" element={user && <Challenges state={state} setState={setState} user={user} setUser={setUser}/>} />
+      <Route path="/myPets" element={user && <MyPets user={user}/>} />
+      <Route path="/profile" element={user && <Profile user={user} characters={state.characters} levels={state.levels} />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/sandbox" element={<Sandbox />} />
     </Routes>
   </BrowserRouter>
   )

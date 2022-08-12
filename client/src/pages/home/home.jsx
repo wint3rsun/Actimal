@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.scss";
 import Move from "./Move";
 import BgMove from "./BgMove";
@@ -9,6 +10,7 @@ export default function Home({setUser,state}) {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
   
   
   const handleChange = (e) => {
@@ -23,31 +25,29 @@ export default function Home({setUser,state}) {
   };
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      (async () => {
-        const Response = await fetch('http://localhost:8080/login', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formValues)
-        });
-        const content = await Response.json();
-        console.log("user",content);
-        if(content.jwtToken){ 
-          setUser(content);
-          console.log('in here successflu');
-          localStorage.setItem('data', JSON.stringify(content));
-          if(state.challenges[0]){
-            window.location.href = "http://localhost:3002/challenges";
-            }
-          
-          
-        }
-         })();
-        
+    const login = async () => {
+      if (Object.keys(formErrors).length === 0 && isSubmit) {
+          const Response = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formValues)
+          });
+          const content = await Response.json();
+          console.log("user",content);
+          if(content.jwtToken){ 
+            setUser(content);
+            console.log('in here successflu');
+            localStorage.setItem('data', JSON.stringify(content));
+            navigate('/challenges');
+          }
+      }
     }
+
+    login();
+
   }, [formErrors]);
   
   

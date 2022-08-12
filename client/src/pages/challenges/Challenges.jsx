@@ -12,9 +12,8 @@ const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
 
-export default function Challenges({user, state, setState,flag}) {
+export default function Challenges({user, state, setState, setUser}) {
   const [mode, setMode] = useState(SHOW_ALL);
-  
   const [currentChallenge, setCurrentChallenge] = useState({});
   
   useEffect(() => {
@@ -31,16 +30,6 @@ export default function Challenges({user, state, setState,flag}) {
       
     });
   }, []);
-
-  
-  
-  
-   (async () => {
-      if(state.challenges[0]){
-        user['character'] = state.characters[user.character_id];
-        }
-    })();
-  
 
   const showDetail = (game) => {
     document.getElementById("challenge-detail-btn").click();
@@ -114,9 +103,9 @@ export default function Challenges({user, state, setState,flag}) {
   
   return (
         <main>
-      <TopNav />
+      <TopNav setUser={setUser}/>
 
-      { flag && mode === SHOW_ALL && (
+      { mode === SHOW_ALL && (
         <div className="d-flex flex-row justify-content-between border">
         
         <div className="mx-5 my-5">
@@ -132,7 +121,7 @@ export default function Challenges({user, state, setState,flag}) {
         </div>
       )}
 
-      {flag && mode === SHOW_MY_CHALLENGES && (
+      { mode === SHOW_MY_CHALLENGES && (
         <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
             <QuickStats user={user} />
@@ -146,13 +135,13 @@ export default function Challenges({user, state, setState,flag}) {
         </div>
       )}
 
-      { flag && mode === SHOW_RANKING && (
+      { mode === SHOW_RANKING && (
           <div className="d-flex flex-row justify-content-between border">
             <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user}/>
           </div>
       )}
 
-      { flag && mode === SHOW_AVAILABLE && (
+      { mode === SHOW_AVAILABLE && (
         <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
             <QuickStats user={user} />
@@ -165,7 +154,6 @@ export default function Challenges({user, state, setState,flag}) {
           </div>
         </div>
       )}
-
       <Footer/>
     </main>
 

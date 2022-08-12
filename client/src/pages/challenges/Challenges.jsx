@@ -66,6 +66,24 @@ export default function Challenges({user, state, setState,flag}) {
     })
     .catch(err=>console.log(err));
   }
+  
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function syncData() {
+    const update = getRandomArbitrary(10,1000).toFixed(2);
+    const progress = {
+      user_id: user.id,
+      updata_progress: update
+    }
+    axios
+    .put((`http://localhost:8080/participants/update_data`), { progress })
+    .then((response) => {
+     console.log(response.data);
+    })
+    .catch(err=>console.log(err));
+  }
 
   const ranking = (game_challenge) => {
     setCurrentChallenge(game_challenge);
@@ -123,7 +141,8 @@ export default function Challenges({user, state, setState,flag}) {
           <QuickStats user={user} />
           <h1>All Challenges</h1>
           <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> My Challenges</button>
-          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
+          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> Available</button>
+          <button onClick={syncData} className="btn btn-primary"><i className="fa fa-bullseye"></i> Sync data</button>
         </div>
 
         <div className="mx-5 my-5">
@@ -138,7 +157,8 @@ export default function Challenges({user, state, setState,flag}) {
             <QuickStats user={user} />
             <h1>My Challenges</h1>
             <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
-            <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
+            <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> Available</button>
+            <button onClick={syncData} className="btn btn-primary"><i className="fa fa-bullseye"></i> Sync data</button>
           </div>
           <div className="mx-5 my-5">
             {myChallengeList}
@@ -158,7 +178,8 @@ export default function Challenges({user, state, setState,flag}) {
             <QuickStats user={user} />
             <h1>Available Challenges</h1>
             <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
-            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
+            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> My Challenges</button>
+            <button onClick={syncData} className="btn btn-primary"><i className="fa fa-bullseye"></i> Sync data</button>
           </div>
           <div className="mx-5 my-5">
             {availableChallenges}

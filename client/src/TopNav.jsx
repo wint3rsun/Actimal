@@ -1,6 +1,6 @@
 
 import "./topNav.scss";
-export default function TopNav({setUser}) {
+export default function TopNav({setUser, onClick}) {
   
   const logout = async () => {
     localStorage.clear();
@@ -8,7 +8,7 @@ export default function TopNav({setUser}) {
   };
   return (
 
-    <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav className="navbar navbar-expand-sm bg-dark navbar-dark" onClick={onClick}>
       <div className="container-fluid">
         <a className="navbar-brand" href="#">Final !</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">

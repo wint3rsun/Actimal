@@ -67,12 +67,15 @@ module.exports = (db) => {
     router.put('/update_data', (req, res) => {
       const {updata_progress, user_id} = req.body.progress
       const queryString = `
-      UPDATE game_challenge_participants SET progress = $1 WHERE users_id = $2
-      RETURNING progress,users_id`;
+      UPDATE game_challenge_participants
+      SET progress = $1
+      FROM game_challenges
+      WHERE game_challenge_participants.game_challenges_id = game_challenges.id AND game_challenge_participants.users_id = $2 AND challenges_type = $3 AND game_challenges.end_date >= CURRENT_DATE;
+      `
       console.log(updata_progress);
       console.log(user_id);
   
-      db.query(queryString, [updata_progress, user_id])
+      db.query(queryString, [updata_progress, user_id,'steps'])
       .then((results) => {
         const message = ("update progress successfuly") ;
         res.json(message);
@@ -80,6 +83,7 @@ module.exports = (db) => {
       .catch((err) => {
         res.status(500).json({error: err.message});
       });
+      
     });
 
   return router;

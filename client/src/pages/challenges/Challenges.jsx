@@ -72,17 +72,24 @@ export default function Challenges({user, state, setState,flag}) {
   }
 
   function syncData() {
-    const update = getRandomArbitrary(10,1000).toFixed(2);
+    const current_progress = Object.values(state.user_challenges)[0].progress;
+    console.log(current_progress);
+    const number = Number(getRandomArbitrary(10,1000).toFixed(2));
+    console.log(number);
+    const update = number+ Number(current_progress);
+    console.log(update);
     const progress = {
       user_id: user.id,
-      updata_progress: update
+      updata_progress: update.toFixed(2)
     }
     axios
     .put((`http://localhost:8080/participants/update_data`), { progress })
     .then((response) => {
      console.log(response.data);
+     window.location.reload()
     })
     .catch(err=>console.log(err));
+
   }
 
   const ranking = (game_challenge) => {

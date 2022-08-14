@@ -15,18 +15,17 @@ module.exports = (db) => {
 
   router.put("/", (req, res) => {
     
-    const { username,email, password,character_id } = req.body;
+    const { username,user_id } = req.body;
+    console.log(username,user_id);
 
     db.query(
       `
-      INSERT INTO followers (username,followed, followers) VALUES ($1, $2, $3,$4)
+      INSERT INTO followers (name,followers) VALUES ($1, $2)
     `,
-      [username,followed_id, followers_id]
+      [username,user_id]
     )
       .then(() => {
-        setTimeout(() => {
-          res.status(204).json({});
-        }, 1000);
+        res.json("updated");
       })
       .catch(error => console.log(error));
   });

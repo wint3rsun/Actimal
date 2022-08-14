@@ -64,7 +64,7 @@ export default function MyFriends({user}) {
       </button>
       </div>
       
-      {Search ? <div id = "search"> <SearchBar placeholder="Search User By Username..." data={Data} /> </div> :
+      {Search ? <div id = "search"> <SearchBar user={user} placeholder="Search User By Username..." data={Data} /> </div> :
      <FollowersList user={Followers}></FollowersList>}
     </div>
   )

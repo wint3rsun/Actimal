@@ -1,12 +1,13 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchBar.scss";
+import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faUserClock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, data, user }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -29,10 +30,24 @@ function SearchBar({ placeholder, data }) {
     setWordEntered("");
   };
 
-  const add = (e,value) => {
-    console.log("user cliked",value.value);
-
-  };
+  const add = async(e, value) => {
+    console.log("user cliked", value.value);
+    const info = {
+      user_id: user.id,
+      username: value.value.username
+    }
+    console.log(info);
+    const Response = await fetch('http://localhost:8080/followers', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    });
+    const content = await Response.json();
+    console.log("back",content);
+  }
 
   return (
     <div className="search">
@@ -55,8 +70,8 @@ function SearchBar({ placeholder, data }) {
         <div className="dataResult">
           {filteredData.slice(0, 3).map((value, key) => {
             return (
-              <a key ={value.id} className="dataItem" onClick={e => add(e,{value})} >
-                <p>{value.username} <FontAwesomeIcon className="add_i" icon={faUserPlus}/></p>
+              <a key={value.id} className="dataItem" onClick={e => add(e, { value })} >
+                <p>{value.username} <FontAwesomeIcon className="add_i" icon={faUserPlus} /></p>
               </a>
             );
           })}

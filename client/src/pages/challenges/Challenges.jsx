@@ -55,6 +55,31 @@ export default function Challenges({user, state, setState, setUser}) {
     })
     .catch(err=>console.log(err));
   }
+  
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function syncData() {
+    const current_progress = Object.values(state.user_challenges)[0].progress;
+    console.log(current_progress);
+    const number = Number(getRandomArbitrary(10,1000).toFixed(2));
+    console.log(number);
+    const update = number+ Number(current_progress);
+    console.log(update);
+    const progress = {
+      user_id: user.id,
+      updata_progress: update.toFixed(2)
+    }
+    axios
+    .put((`http://localhost:8080/participants/update_data`), { progress })
+    .then((response) => {
+     console.log(response.data);
+     window.location.reload()
+    })
+    .catch(err=>console.log(err));
+
+  }
 
   const ranking = (game_challenge) => {
     setCurrentChallenge(game_challenge);
@@ -110,9 +135,10 @@ export default function Challenges({user, state, setState, setUser}) {
         
         <div className="mx-5 my-5">
           <QuickStats user={user} />
-          <h1>All Challenges</h1>
-          <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i> My Challenges</button>
-          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
+          <h1 className="fix-title">All Challenges</h1>
+          <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
+          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> Available</button>
+          <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye"></i> Sync data</button>
         </div>
 
         <div className="mx-5 my-5">
@@ -125,9 +151,10 @@ export default function Challenges({user, state, setState, setUser}) {
         <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
             <QuickStats user={user} />
-            <h1>My Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
-            <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary"><i className="fa fa-bullseye"></i> Available</button>
+            <h1 className="fix-title">My Challenges</h1>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
+            <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> Available</button>
+            <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye"></i> Sync data</button>
           </div>
           <div className="mx-5 my-5">
             {myChallengeList}
@@ -145,9 +172,10 @@ export default function Challenges({user, state, setState, setUser}) {
         <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
             <QuickStats user={user} />
-            <h1>Available Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2"><i className="fa fa-bullseye"></i>Dashboard</button>
-            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary"><i className="fa fa-bullseye"></i> My Challenges</button>
+            <h1 className="fix-title">Available Challenges</h1>
+            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
+            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
+            <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye "></i> Sync data</button>
           </div>
           <div className="mx-5 my-5">
             {availableChallenges}

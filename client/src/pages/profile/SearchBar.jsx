@@ -10,6 +10,8 @@ import { faUserPlus, faUserClock, faMagnifyingGlass } from '@fortawesome/free-so
 function SearchBar({ placeholder, data, user }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [Alert,setAlert]=useState(false);
+  const [Info,setInfo]=useState("");
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -30,7 +32,7 @@ function SearchBar({ placeholder, data, user }) {
     setWordEntered("");
   };
 
-  const add = async(e, value) => {
+  const add = async (e, value) => {
     console.log("user cliked", value.value);
     const info = {
       user_id: user.id,
@@ -46,7 +48,12 @@ function SearchBar({ placeholder, data, user }) {
       body: JSON.stringify(info)
     });
     const content = await Response.json();
-    console.log("back",content);
+    console.log("back", content);
+    setInfo(content)
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 1000);
   }
 
   return (
@@ -77,6 +84,9 @@ function SearchBar({ placeholder, data, user }) {
           })}
         </div>
       )}
+       {Alert &&  <div className="alert alert-success mt-5" role="alert">
+      Followed {Info} sccessfuly
+    </div> }
     </div>
   );
 }

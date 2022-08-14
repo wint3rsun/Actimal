@@ -25,7 +25,7 @@ module.exports = (db) => {
       [username,user_id]
     )
       .then(() => {
-        res.json("updated");
+        res.json(username);
       })
       .catch(error => console.log(error));
   });

@@ -14,7 +14,7 @@ import Home from './pages/home/Home';
 import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
 import Register from "./Registration/Register"
-import Sandbox from "./pages/challenges/sandbox/Sandbox";
+import WorkoutChallenge from "./pages/challenges/WorkoutChallenge"
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
@@ -51,7 +51,7 @@ function App() {
         }))
 
         if(localStorage.getItem('data')) {
-          const newUser = JSON.parse(localStorage.getItem('data'));
+          let newUser = JSON.parse(localStorage.getItem('data'));
           newUser["character"] = all[2].data[newUser.character_id];
           setUser(newUser);
         };
@@ -63,11 +63,11 @@ function App() {
   <BrowserRouter>
     <Routes >
       <Route path="/" element={user ? <Navigate to="/challenges" /> : <Home setUser={setUser} state={state} />}/>
-      <Route path="/challenges" element={user && <Challenges state={state} setState={setState} user={user} setUser={setUser}/>} />
+      <Route path="/challenges" element={user ? <Challenges state={state} setState={setState} user={user} setUser={setUser}/> : <Navigate to="/challenges" />} />
       <Route path="/myPets" element={user && <MyPets user={user}/>} />
       <Route path="/profile" element={user && <Profile user={user} characters={state.characters} levels={state.levels} />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/sandbox" element={<Sandbox />} />
+      <Route path="/sandbox" element={<WorkoutChallenge />} />
     </Routes>
   </BrowserRouter>
   )

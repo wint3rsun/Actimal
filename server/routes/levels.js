@@ -32,12 +32,14 @@ module.exports = (db) => {
         UPDATE users
         SET experience_points = $1, level = $2
         WHERE id = $3
+        RETURNING *
       `;
       const level = findLevel(data.rows, req.body.exp);
 
       db.query(queryString2, [req.body.exp,level,req.params.user_id])
-      .then(data => {
-        res.json(data);
+      .then(data2 => {
+        console.log(data2.rows[0])
+        res.json(data2.rows[0]);
       })
       .catch(err=>res.status(500).json({err:err.message}));
     })

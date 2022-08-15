@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 import TopNav from "../../TopNav";
 
@@ -10,7 +11,7 @@ const STATUS = {
 
 export default function Sandbox({user}) {
   //const INITIAL_COUNT = 1057; //2 minutes in seconds
-  const INITIAL_COUNT = 30; //testing time
+  const INITIAL_COUNT = 10; //testing time
 
   const [secondsRemaining, setSecondsRemaining] = useState(INITIAL_COUNT);
   const [status, setStatus] = useState(STATUS.STOPPED);
@@ -33,7 +34,14 @@ export default function Sandbox({user}) {
   }
 
   const handleComplete = () => {
-    setStatus(STATUS.COMPLETED);
+    axios.put()
+    .then((res) => {
+
+    })
+    .catch((err)=> {
+      alert("whoops!");
+    })
+
 
   }
 

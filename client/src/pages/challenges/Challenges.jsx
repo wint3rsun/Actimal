@@ -6,11 +6,13 @@ import Footer from "../../Footer";
 import ChallengeListItem from "../../ChallengeListItem";
 import QuickStats from "../../QuickStats";
 import Challenge from "../../Challenge";
+import WorkoutChallenge from "./WorkoutChallenge"
 
 const SHOW_ALL = "SHOW_ALL";
 const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
+const SHOW_WORKOUT = "SHOW_WORKOUT";
 
 export default function Challenges({user, state, setState, setUser}) {
   const [mode, setMode] = useState(SHOW_ALL);
@@ -88,15 +90,16 @@ export default function Challenges({user, state, setState, setUser}) {
     .catch(err=>console.log(err));
 
     }
-
-    
-    
-
   }
 
   const ranking = (game_challenge) => {
     setCurrentChallenge(game_challenge);
     setMode(SHOW_RANKING);
+  }
+
+  const workout = (game_challenge) => {
+    setCurrentChallenge(game_challenge);
+    setMode(SHOW_WORKOUT);
   }
 
   function toggleChallengesView(view) {
@@ -125,6 +128,7 @@ export default function Challenges({user, state, setState, setUser}) {
         quest={quest}
         onJoin={join}
         onRanking={ranking}
+        onWorkout={workout}
         onShow={showDetail}
         alreadyJoined={alreadyJoined}
         isRequiredLevel={isRequiredLevel}
@@ -140,63 +144,72 @@ export default function Challenges({user, state, setState, setUser}) {
   });
   
   return (
-        <main>
-      <TopNav setUser={setUser}/>
+    <>
+      {mode !== SHOW_WORKOUT && (
+      <main>
+        <TopNav setUser={setUser}/>
 
-      { mode === SHOW_ALL && (
-        <div className="d-flex flex-row justify-content-between border">
-        
-        <div className="mx-5 my-5">
-          <QuickStats user={user} />
-          <h1 className="fix-title">All Challenges</h1>
-          <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
-          <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> Available</button>
-          <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye"></i> Sync data</button>
-        </div>
-
-        <div className="mx-5 my-5">
-          {challengeList}
-        </div>
-        </div>
-      )}
-
-      { mode === SHOW_MY_CHALLENGES && (
-        <div className="d-flex flex-row justify-content-between border">     
+        { mode === SHOW_ALL && (
+          <div className="d-flex flex-row justify-content-between border">
+          
           <div className="mx-5 my-5">
             <QuickStats user={user} />
-            <h1 className="fix-title">My Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
+            <h1 className="fix-title">All Challenges</h1>
+            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
             <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> Available</button>
             <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye"></i> Sync data</button>
           </div>
-          <div className="mx-5 my-5">
-            {myChallengeList}
-          </div>
-        </div>
-      )}
 
-      { mode === SHOW_RANKING && (
-          <div className="d-flex flex-row justify-content-between border">
-            <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user}/>
-          </div>
-      )}
-
-      { mode === SHOW_AVAILABLE && (
-        <div className="d-flex flex-row justify-content-between border">     
           <div className="mx-5 my-5">
-            <QuickStats user={user} />
-            <h1 className="fix-title">Available Challenges</h1>
-            <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
-            <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
-            <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye "></i> Sync data</button>
+            {challengeList}
           </div>
-          <div className="mx-5 my-5">
-            {availableChallenges}
           </div>
-        </div>
-      )}
-      <Footer/>
-    </main>
+        )}
 
+        { mode === SHOW_MY_CHALLENGES && (
+          <div className="d-flex flex-row justify-content-between border">     
+            <div className="mx-5 my-5">
+              <QuickStats user={user} />
+              <h1 className="fix-title">My Challenges</h1>
+              <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
+              <button onClick={() => toggleChallengesView(SHOW_AVAILABLE)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> Available</button>
+              <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye"></i> Sync data</button>
+            </div>
+            <div className="mx-5 my-5">
+              {myChallengeList}
+            </div>
+          </div>
+        )}
+
+        { mode === SHOW_RANKING && (
+            <div className="d-flex flex-row justify-content-between border">
+              <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user}/>
+            </div>
+        )}
+
+        { mode === SHOW_AVAILABLE && (
+          <div className="d-flex flex-row justify-content-between border">     
+            <div className="mx-5 my-5">
+              <QuickStats user={user} />
+              <h1 className="fix-title">Available Challenges</h1>
+              <button onClick={() => toggleChallengesView(SHOW_ALL)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i>Dashboard</button>
+              <button onClick={() => toggleChallengesView(SHOW_MY_CHALLENGES)} className="btn btn-primary me-2 fix"><i className="fa fa-bullseye"></i> My Challenges</button>
+              <button onClick={syncData} className="btn btn-primary fix"><i className="fa fa-bullseye "></i> Sync data</button>
+            </div>
+            <div className="mx-5 my-5">
+              {availableChallenges}
+            </div>
+          </div>
+        )}
+
+
+        <Footer/>
+      </main>)}
+
+      { mode === SHOW_WORKOUT && (
+      <WorkoutChallenge user={user} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} />
+        )
+      }
+    </>
   );
 }

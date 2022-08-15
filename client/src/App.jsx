@@ -12,7 +12,8 @@ import Challenges from './pages/challenges/Challenges';
 import Home from './pages/home/Home';
 import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
-import Register from "./Registration/Register"
+import Register from "./Registration/Register";
+import LevelUp from "./pages/challenges/LevelUp";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
@@ -64,6 +65,7 @@ function App() {
       <Route path="/myPets" element={data ? <MyPets user={data}/> : <Home setUser={setUser}/>} />
       <Route path="/profile" element={data ? <Profile user={data} characters={state.characters} levels={state.levels} flag={flag}/> : <Home setUser={setUser} />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/LevelUp" element={<LevelUp />} />
     </Routes>
   </BrowserRouter>
   )

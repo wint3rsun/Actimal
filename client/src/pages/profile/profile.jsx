@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileFooter from "./ProfileFooter";
 import MyFriends from "./MyFriends";
 
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -40,11 +41,11 @@ export default function Profile({user, characters, levels, flag}) {
   return (
     <main className="profile-layout">
       {flag && <>
-      <div className="border mt-3 px-3 py-1 position-relative">
+      <div className="border mt-3 position-relative">
       <button type="button" className="profile-btn btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
-      <nav className="profile d-flex flex-row justify-content-around py-3">
+      <nav className="profile d-flex flex-row justify-content-around py-3" >
         <p onClick={() => {openTab("me")}} id="me" className="tab active"><FontAwesomeIcon icon={faUser}/>Me</p>
-        <p onClick={() => {openTab("my-friends")}} id="my-friends" className="tab"><FontAwesomeIcon icon={faUsers} />My Friends <span>222</span></p>
+        <p onClick={() => {openTab("my-friends")}} id="my-friends" className="tab"><FontAwesomeIcon icon={faUsers} />Followers </p>
       </nav>
       {mode === ME && (
         <div>
@@ -57,7 +58,7 @@ export default function Profile({user, characters, levels, flag}) {
 
       {mode === MYFRIENDS && (
         <div className="tab-item">
-          <MyFriends />
+          <MyFriends user = {user}/>
         </div>)}
       </div>
       </>}

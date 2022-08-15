@@ -1,42 +1,71 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, {useEffect,useState} from "react";
 import { faUserPlus, faUserClock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import SearchBar from "./SearchBar";
+import axios from "axios";
+import FollowersList from './FollowersList';
 
-export default function MyFriends() {
+export default function MyFriends({user}) {
+  console.log(user.username)
+  const [Data, setData] = useState([]);
+  const [Search, setSearch] = useState(false);
+  const [Followers,setFollowers] = useState([]);
+  // let Search=false;
+
+  useEffect(() => {
+    const usersURL = `http://localhost:8080/users`;
+
+    axios.get(usersURL)
+    .then((res) => {
+      setData(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
+  
+  useEffect(() => {
+    const usersURL = `http://localhost:8080/followers/follower/${user.username}`;
+
+    axios.get(usersURL)
+    .then((res) => {
+      console.log(res.data);
+      setFollowers(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
 
   return (
     <div>
       <div className='d-flex flex-row justify-content-around'>
 
-        <button type='button' className='btn'>
+        {/* <button onClick={()=>{setSearch(false)}} type='button' className='btn border-0' >
           <FontAwesomeIcon icon={faUserPlus}/>
-          <p>Add Friend</p>
-        </button>
+          <p>Followed</p>
+        </button> */}
 
-        <button type='button' className='btn position-relative'>
+        <button onClick={()=>{setSearch(false)}} type='button' className='btn position-relative border-0'>
           <FontAwesomeIcon icon={faUserClock}/>
-          <p>Pending Requests</p>
+          <p>My Followers</p>
           <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            5
+            {Followers.length}
             <span className="visually-hidden">Pending</span>
           </span>
         </button>
 
-      <button type='button' className='btn'>
+
+      <button onClick={()=>{console.log("button clicked");setSearch(true); console.log(Search);}} type='button' className='btn border-0'>
         <FontAwesomeIcon icon={faMagnifyingGlass}/>
-        <p>Search Friends</p>
+        <p>Search User</p>
       </button>
       </div>
-      <div className='d-flex flex-row justify-content-around'>
-        <img className="rounded-circle" src="https://placekitten.com/200/139" alt="profile" />
-
-        <div className="card" style={{width: "18rem"}}>
-        <div className="card-body">
-          <h5 className="card-title">Username 1</h5>
-          <p className="card-text">Streak: 100 Days</p>
-          <a href="#" className="btn btn-primary text-end">Go somewhere</a>
-        </div>
-      </div>
-      </div>
+      
+      {Search ? <div id = "search"> <SearchBar user={user} placeholder="Search User By Username..." data={Data} /> </div> :
+     <FollowersList user={Followers}></FollowersList>}
     </div>
   )
 }

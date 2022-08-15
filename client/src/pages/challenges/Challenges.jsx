@@ -62,33 +62,39 @@ export default function Challenges({user, state, setState, setUser}) {
     return Math.random() * (max - min) + min;
   }
 
-  function syncData() {
+  function syncData(type) {
     const number = Number(getRandomArbitrary(10,1000).toFixed(2));
     for (const i of Object.values(state.user_challenges)){
-    const current_progress = i.progress;
-    console.log("current value",current_progress);
-    
-    console.log("adding value",number);
-    const update = number+ Number(current_progress);
-    console.log("update",update);
-    
-    const progress = {
-      user_id: user.id,
-      updata_progress: update.toFixed(2),
-      id:i.id
-    }
-    axios
-    .put((`http://localhost:8080/participants/update_data`), { progress })
-    .then((response) => {
-     console.log("response",response);
-    //  window.location.reload()
-     setState({
-      ...state,
-      user_challenges: response.data
-      });
-    })
-    .catch(err=>console.log(err));
+      console.log(i.user_challenges);
+      if(i.challenges_type === 'steps'){
+        const current_progress = i.progress;
+        
+        console.log("current value",current_progress);
+        console.log("adding value",number);
 
+        const update = number+ Number(current_progress);
+
+        console.log("update",update);
+        
+        const progress = {
+          user_id: user.id,
+          updata_progress: update.toFixed(2),
+          id:i.id,
+          type: 'steps'
+        }
+
+        axios
+        .put((`http://localhost:8080/participants/update_data`), { progress })
+        .then((response) => {
+         console.log("response",response);
+        //  window.location.reload()
+         setState({
+          ...state,
+          user_challenges: response.data
+          });
+        })
+        .catch(err=>console.log(err));
+      }
     }
   }
 

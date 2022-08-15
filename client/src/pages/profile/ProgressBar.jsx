@@ -22,7 +22,7 @@ export default function ProgressBar({min, max, current, unit}) {
     unit = 'EXP'
   }
   return (
-    <div className="progress-container d-flex flex-column">
+    <div className="progress-container d-flex flex-column px-2">
       <div className="progress">
         <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={current} aria-valuemin={min} aria-valuemax={max} style={{width:`${current/max*100}%`}}></div>
       </div>

@@ -19,6 +19,7 @@ var unlockedRouter = require('./routes/unlockedAnimals');
 var challengeParticipants = require('./routes/challengeParticipants');
 var loginRouter = require('./routes/login');
 const levelsRouter = require('./routes/levels');
+const followersRouter = require('./routes/followers');
 
 var app = express();
 
@@ -91,6 +92,7 @@ app.use('/unlocked', unlockedRouter(db));
 app.use('/participants', challengeParticipants(db));
 app.use('/login', loginRouter(db));
 app.use('/levels', levelsRouter(db));
+app.use('/followers',followersRouter(db));
 
 
 

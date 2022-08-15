@@ -1,13 +1,24 @@
 
-
-
-
 /* Navbar links */
+
+.nav > li > a:hover{
+  background-color:transparent;
+}
+
+.navbar-nav> li > a:hover{
+  background-color:transparent;
+}
 .navbar a {
   padding-left: 1em;
   font-size: x-large;
   color: aliceblue;
   text-decoration: none;
 }
+
+.navbar > div > a:hover{
+  background-color:transparent;
+}
+
+
 
 

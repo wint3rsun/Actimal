@@ -1,5 +1,6 @@
 nav.profile {
-  width: 40rem;
+  width: 45rem;
+  background-color: #e3f2fd;
 }
 nav.profile p {
   display: flex;
@@ -34,4 +35,16 @@ nav.profile p.active {
 
 .profile-model-img {
   height: 40vh;
+}
+
+#search{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+  
+}
+
+#switch:focus {
+  outline: none;
 }

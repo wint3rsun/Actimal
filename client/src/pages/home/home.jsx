@@ -36,9 +36,12 @@ export default function Home({setUser,state}) {
             body: JSON.stringify(formValues)
           });
           const content = await Response.json();
-          console.log("user",content);
+          
           if(content.jwtToken){ 
-            setUser(content);
+            let user = content;
+            user["character"] = state.characters[user.character_id];
+            setUser(user);
+
             console.log('in here successflu');
             localStorage.setItem('data', JSON.stringify(content));
             navigate('/challenges');

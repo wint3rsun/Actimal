@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 
-import TopNav from "../../TopNav";
+import axios from "axios";
 
 const STATUS = {
   STARTED: 'Activity Started',
@@ -9,58 +8,73 @@ const STATUS = {
   COMPLETED: 'Activity Completed'
 };
 
-export default function Sandbox({user}) {
-  //const INITIAL_COUNT = 1057; //2 minutes in seconds
-  const INITIAL_COUNT = 10; //testing time
+const TIME_MARGIN_ERROR = {
+  positive: 5,
+  negative: -5
+};
 
-  const [secondsRemaining, setSecondsRemaining] = useState(INITIAL_COUNT);
+export default function Sandbox({user, quest, setState, challenge, userProgress, onComplete, toggle}) {  
+  const initial = Number(quest.goal) - Math.round(Number(userProgress.progress));
+
+  const [secondsRemaining, setSecondsRemaining] = useState(initial > 0 ? initial : 0);
   const [status, setStatus] = useState(STATUS.STOPPED);
-
-  const handleClick = () => {
-    alert("clicked!");
-  }
 
   const handleStart = () => {
     setStatus(STATUS.STARTED);
   }
 
-  const handleStop = () => {
-    setStatus(STATUS.STOPPED)
-  }
+  const handleStop = (progress_time) => {
+    setStatus(STATUS.STOPPED);
 
-  const handleReset = () => {
-    setStatus(STATUS.STOPPED)
-    setSecondsRemaining(INITIAL_COUNT)
-  }
+    const errorMargin =  Number(quest.goal) - secondsRemaining - Number(progress_time); 
+    let confirmedProgress =  Number(quest.goal) - secondsRemaining;
 
-  const handleComplete = () => {
-    axios.put()
-    .then((res) => {
+    if(errorMargin < TIME_MARGIN_ERROR.positive && parseFloat(errorMargin) > parseFloat(TIME_MARGIN_ERROR.negative)) {
+      confirmedProgress = Number(progress_time);
+    };
+    console.log(secondsRemaining);
+    console.log(progress_time);
+    console.log(confirmedProgress);
+    console.log(errorMargin < TIME_MARGIN_ERROR.positive && parseFloat(errorMargin) > parseFloat(TIME_MARGIN_ERROR.negative))
 
+    const progress = {
+      user_id: user.id,
+      updata_progress: confirmedProgress,
+      id: userProgress.id,
+      type: 'workout'
+    };
+
+    axios
+    .put((`http://localhost:8080/participants/update_data`), { progress })
+    .then((response) => {
+      const userChallenges = response.data;
+      setState((prev)=> ({
+        ...prev,
+        user_challenges: userChallenges
+      }));
+
+     console.log("response",response);
     })
-    .catch((err)=> {
-      alert("whoops!");
-    })
-
-
+    .catch(err=>console.log(err));
   }
 
+  //timer logic
   function useInterval(callback, delay) {
-    const savedCallback = useRef()
+    const savedCallback = useRef();
   
     // Remember the latest callback.
     useEffect(() => {
-      savedCallback.current = callback
+      savedCallback.current = callback;
     }, [callback])
   
     // Set up the interval.
     useEffect(() => {
       function tick() {
-        savedCallback.current()
+        savedCallback.current();
       }
       if (delay !== null) {
-        let id = setInterval(tick, delay)
-        return () => clearInterval(id)
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
       }
     }, [delay])
   }
@@ -68,9 +82,9 @@ export default function Sandbox({user}) {
   const timer = useInterval(
     () => {
       if (secondsRemaining > 0) {
-        setSecondsRemaining(secondsRemaining - 1)
+        setSecondsRemaining(secondsRemaining - 1);
       } else {
-        setStatus(STATUS.COMPLETED)
+        setStatus(STATUS.COMPLETED);
       }
     },
     status === STATUS.STARTED ? 1000 : null,
@@ -82,39 +96,33 @@ export default function Sandbox({user}) {
   const minutesRemaining = (secondsRemaining - seconds) / 60
   const minutes = minutesRemaining % 60;
 
-  const e = document.getElementById('workout');
+  useEffect(()=> {
+    const e = document.getElementById('workout');
   if(e) {
-    e.playbackRate = 1.0;
-    // e.addEventListener("mouseover", () => {
-    //   handleStart();
-    // });
     e.addEventListener("pause", () => {
-      handleStop();
+      handleStop(e.currentTime);
     });
     e.addEventListener("play", () => {
       handleStart();
+    });
+    e.addEventListener("loadstart", ()=>{
+      e.currentTime=userProgress.progress;
+    });
+    e.addEventListener("ended", () => {
+      handleStop(quest.goal);
     })
   }
-  // 
-  window.onbeforeunload = function() { 
-    e.pause();
-    handleStop(); 
-    
-    
-    return "Your work will be lost."; };
+
+  },[secondsRemaining])
 
   return (
-    <>
-      <TopNav onClick={handleClick}/>
-      <h1>Activity</h1>
-      <h2 className="">Status: {status}</h2>
-
-      <main className="d-flex flex-column justify-content-between align-items-center">
+      <main className="d-flex flex-column justify-content-between align-items-center position-relative">
+        <h1>Activity</h1>
+        <h2 className="">Status: {status}</h2>
+        <button type="button" className="btn-close position-absolute" aria-label="Close" onClick={()=>toggle()}></button>
         <div>
             {<p>Time Remaining: {minutes}:{seconds < 10 ?  `0${seconds}` : seconds} </p>}
-            <button onClick={handleReset} type="button" className="btn btn-primary me-2">Reset</button>
-            {secondsRemaining === 0 && <button onClick={handleComplete} type="button" className="btn btn-primary">Complete</button>}
-
+            { secondsRemaining === 0 && <button onClick={()=>onComplete(userProgress.id)} type="button" className="btn btn-primary">Complete</button>}
         </div>
         <div>
           <div id="player-status">
@@ -127,8 +135,5 @@ export default function Sandbox({user}) {
           </div>
         </div>
       </main>
-    </>
-
-    
   )
 }

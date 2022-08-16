@@ -13,6 +13,19 @@ module.exports = (db) => {
     .catch(error => console.log(error));
   });
 
+  router.get('/followed/:user', (req, res) => {
+    const command = `SELECT * FROM users
+    JOIN followers ON followers.name = users.username
+    JOIN characters ON users.character_id = characters.id
+    WHERE followers.follower = $1`;
+    db.query(command,[req.params.user]).then(data => {
+      res.json(data.rows);
+    })
+    .catch(error => console.log(error));
+  });
+
+  
+
   router.put("/", (req, res) => {
     
     const { username,user_id } = req.body;

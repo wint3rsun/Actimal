@@ -86,6 +86,7 @@ export default function Challenges({user, state, setState,flag}) {
       updata_progress: update.toFixed(2),
       id:i.id
     }
+    
     axios
     .put((`http://localhost:8080/participants/update_data`), { progress })
     .then((response) => {

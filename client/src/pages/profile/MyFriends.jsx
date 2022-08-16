@@ -6,10 +6,13 @@ import axios from "axios";
 import FollowersList from './FollowersList';
 
 export default function MyFriends({user}) {
-  console.log(user.username)
+  // console.log(user.username)
   const [Data, setData] = useState([]);
   const [Search, setSearch] = useState(false);
   const [Followers,setFollowers] = useState([]);
+  const [Followed,setFollowed] = useState([]);
+  const [Follow, setFollow] = useState(true);
+  const [Follower, setFollower] = useState(false);
   // let Search=false;
 
   useEffect(() => {
@@ -30,8 +33,22 @@ export default function MyFriends({user}) {
 
     axios.get(usersURL)
     .then((res) => {
-      console.log(res.data);
+      // console.log("get1",res.data);
       setFollowers(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
+
+  useEffect(() => {
+    const usersURL = `http://localhost:8080/followers/followed/${user.id}`;
+
+    axios.get(usersURL)
+    .then((res) => {
+      // console.log("get2",res.data);
+      setFollowed(res.data);
     })
     .catch((error) => {
       console.log(error);
@@ -43,12 +60,12 @@ export default function MyFriends({user}) {
     <div>
       <div className='d-flex flex-row justify-content-around'>
 
-        {/* <button onClick={()=>{setSearch(false)}} type='button' className='btn border-0' >
+        <button onClick={()=>{setSearch(false); setFollow(true);setFollower(false)}} type='button' className='btn border-0' >
           <FontAwesomeIcon icon={faUserPlus}/>
           <p>Followed</p>
-        </button> */}
+        </button>
 
-        <button onClick={()=>{setSearch(false)}} type='button' className='btn position-relative border-0'>
+        <button onClick={()=>{setSearch(false);setFollow(false);setFollower(true)}} type='button' className='btn position-relative border-0'>
           <FontAwesomeIcon icon={faUserClock}/>
           <p>My Followers</p>
           <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -58,14 +75,17 @@ export default function MyFriends({user}) {
         </button>
 
 
-      <button onClick={()=>{console.log("button clicked");setSearch(true); console.log(Search);}} type='button' className='btn border-0'>
+      <button onClick={()=>{setSearch(true);setFollow(false);setFollower(false)}} type='button' className='btn border-0'>
         <FontAwesomeIcon icon={faMagnifyingGlass}/>
         <p>Search User</p>
       </button>
       </div>
       
-      {Search ? <div id = "search"> <SearchBar user={user} placeholder="Search User By Username..." data={Data} /> </div> :
-     <FollowersList user={Followers}></FollowersList>}
+  
+    {Search && <div id = "search"> <SearchBar user={user} placeholder="Search User By Username..." data={Data} /> </div> }
+    {Follow && <FollowersList user={Followed}></FollowersList>}
+    {Follower && <FollowersList user={Followers}></FollowersList>}
+    
     </div>
   )
 }

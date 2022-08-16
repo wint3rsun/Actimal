@@ -16,6 +16,7 @@ export default function ChallengeListItem({challenge, quest, onJoin, onShow, onR
           <h5 className="card-title">{quest.name}</h5>
           <p className="card-text">{quest.description}</p>
           <p className="card-text">{`Start Date: ${challenge.start_date}`}</p>
+          <p className="card-text">{`End Date: ${challenge.end_date}`}</p>
           </>
           )}
 

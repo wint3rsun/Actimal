@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import io from 'socket.io-client';
@@ -13,9 +12,7 @@ import Screen from "./Screen";
 
 const socket = io.connect("http://localhost:8080");
 
-export default function Challenge({challenge, quest, characters, user}) {
-  //for close button navigation
-  const navigate = useNavigate();
+export default function Challenge({challenge, quest, characters, user, toggle}) {
 
   const [username, setUsername] = useState(user.username);
   const [room, setRoom] = useState(challenge.id);
@@ -58,7 +55,7 @@ export default function Challenge({challenge, quest, characters, user}) {
 
   return (
     <main className="challenge position-relative">
-      <button type="button" className="btn-close position-absolute" aria-label="Close" onClick={() => navigate(0)}></button>
+      <button type="button" className="btn-close position-absolute" aria-label="Close" onClick={() => toggle()}></button>
       <section className="challenge-header mt-5">
         <h1>{quest.name}</h1>
         <h2>Leaderboard</h2>

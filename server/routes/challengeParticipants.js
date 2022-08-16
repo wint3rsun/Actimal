@@ -23,8 +23,10 @@ module.exports = (db) => {
 
   router.get('/', (req, res) => {
     const queryString = `
-      SELECT *
+      SELECT game_challenge_participants.*, game_challenges.challenges_type
       FROM game_challenge_participants
+      JOIN game_challenges
+      ON game_challenges_id = game_challenges.id
       WHERE users_id = $1
     `;
 
@@ -51,8 +53,6 @@ module.exports = (db) => {
     VALUES ($1, $2)
     RETURNING *
     `;
-    console.log(req.body.game_challenge_id);
-    console.log(req.body.user_id);
 
     db.query(queryString, [game_challenge_id, user_id])
     .then((results) => {
@@ -63,9 +63,9 @@ module.exports = (db) => {
     });
   });
 
-    // create game challenge participant
+    // update challenge participant
     router.put('/update_data', (req, res) => {
-      const {updata_progress, user_id, id} = req.body.progress
+      const {updata_progress, user_id, id, type} = req.body.progress
       const queryString = `
       UPDATE game_challenge_participants
       SET progress = $1
@@ -73,13 +73,44 @@ module.exports = (db) => {
       WHERE game_challenge_participants.game_challenges_id = game_challenges.id AND game_challenge_participants.users_id = $2 
       AND challenges_type = $3 AND game_challenges.end_date >= CURRENT_DATE AND game_challenge_participants.id = $4;
       `
-      console.log(updata_progress);
-      console.log(user_id);
+      console.log(req.body.progress);
   
-      db.query(queryString, [updata_progress, user_id,'steps',id])
+      db.query(queryString, [updata_progress, user_id, type, id])
       .then((results) => {
         const message = ("update progress successfuly") ;
-        res.redirect(303,`/participants/?user=${user_id}`);
+        console.log(results.rowCount);
+        if(results.rowCount > 0) {
+          res.redirect(303,`/participants/?user=${user_id}`);
+        }
+        else{
+          res.send("no update");
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({error: err.message});
+      });
+      
+    });
+
+    // update participant to complete
+    router.put('/complete', (req, res) => {
+      const {user_id, id} = req.body.update
+      const queryString = `
+      UPDATE game_challenge_participants
+      SET isComplete = true
+      WHERE users_id = $1 AND game_challenge_participants.id = $2;
+      `
+      console.log(req.body.progress);
+  
+      db.query(queryString, [user_id, id])
+      .then((results) => {
+        console.log(results.rowCount);
+        if(results.rowCount > 0) {
+          res.redirect(303,`/participants/?user=${user_id}`);
+        }
+        else{
+          res.send("no update");
+        }
       })
       .catch((err) => {
         res.status(500).json({error: err.message});

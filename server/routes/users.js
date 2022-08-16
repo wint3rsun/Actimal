@@ -9,6 +9,21 @@ module.exports = (db) => {
     })
   });
 
+  router.get('/:user_id', (req, res) => {
+    const command = `
+    SELECT * FROM users
+    WHERE id = $1
+    `;
+
+    db.query(command, [req.params.user_id]).then(data => {
+      const info = {
+        level: data.rows[0].level,
+        experience_points: data.rows[0].experience_points
+      }
+      res.json(info);
+    })
+  });
+
   router.put("/", (req, res) => {
     
     const { username,email, password,character_id } = req.body;

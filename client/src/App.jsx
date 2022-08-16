@@ -77,7 +77,7 @@ function App() {
   return (
   <BrowserRouter>
     <Routes >
-      <Route path="/" element={ user === null && <Home setUser={setUser} state={state} setState={setState} loadData={loadData} /> || <Navigate to="/challenges"/>} />
+      <Route path="/" element={ user === null && <Home loadData={loadData} /> || <Navigate to="/challenges"/>} />
       <Route path="/challenges" element={(user && <Challenges state={state} setState={setState} user={user} setUser={setUser} updateUserLvl={updateUserLvl}/>) || <Navigate to="/"/>} />
       <Route path="/myPets" element={(user && <MyPets user={user}/>) || <Navigate to="/"/>} />
       <Route path="/profile" element={(user && <Profile user={user} characters={state.characters} levels={state.levels}/>) || <Navigate to="/"/> } />

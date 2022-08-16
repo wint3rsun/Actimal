@@ -5,7 +5,7 @@ import Move from "./Move";
 import BgMove from "./BgMove";
 
 
-export default function Home({setUser,state}) {
+export default function Home({loadData}) {
   const initialValues = { username: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -39,11 +39,8 @@ export default function Home({setUser,state}) {
           
           if(content.jwtToken){ 
             let user = content;
-            user["character"] = state.characters[user.character_id];
-            setUser(user);
 
-            console.log('in here successflu');
-            localStorage.setItem('data', JSON.stringify(content));
+            loadData(user);
             navigate('/challenges');
           }
       }

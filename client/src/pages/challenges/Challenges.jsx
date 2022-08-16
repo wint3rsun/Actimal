@@ -14,7 +14,8 @@ const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
 const SHOW_WORKOUT = "SHOW_WORKOUT";
 
-export default function Challenges({user, state, setState, setUser}) {
+export default function Challenges({user, state, setState, setUser, updateUserLvl}) {
+
   const [mode, setMode] = useState(SHOW_ALL);
   const [currentChallenge, setCurrentChallenge] = useState({});
   
@@ -62,7 +63,7 @@ export default function Challenges({user, state, setState, setUser}) {
     return Math.random() * (max - min) + min;
   }
 
-  function syncData(type) {
+  function syncData() {
     const number = Number(getRandomArbitrary(10,1000).toFixed(2));
     for (const i of Object.values(state.user_challenges)){
       console.log(i.user_challenges);
@@ -98,6 +99,36 @@ export default function Challenges({user, state, setState, setUser}) {
     }
   }
 
+  function completeWorkout(id) {
+    const update = {
+      user_id: user.id,
+      id: id
+    }
+    const awardedEXP = state.quests[currentChallenge.quest_id].base_experience;
+    const exp = awardedEXP + user.experience_points;
+
+    console.log(exp);
+
+    Promise.all([
+      axios.put((`http://localhost:8080/participants/complete`), { update }),
+      axios.put((`http://localhost:8080/levels/${user.id}`), { exp })
+    ]).then((all) => {
+
+      setState({
+        ...state,
+        user_challenges: all[0].data
+        });
+
+        const newLevel = all[1].data.level;
+        const newExp = all[1].data.experience_points;
+
+        console.log("level: ", newLevel);
+        console.log("exp: ", newExp);
+        updateUserLvl(newLevel, newExp);
+  
+    }).catch(err=>console.log(err));
+  }
+
   const ranking = (game_challenge) => {
     setCurrentChallenge(game_challenge);
     setMode(SHOW_RANKING);
@@ -110,6 +141,7 @@ export default function Challenges({user, state, setState, setUser}) {
 
   function toggleChallengesView(view) {
     if(view === SHOW_ALL) {
+      setCurrentChallenge({});
       setMode(SHOW_ALL);
     }
     if (view === SHOW_MY_CHALLENGES) {
@@ -150,8 +182,6 @@ export default function Challenges({user, state, setState, setUser}) {
   });
   
   return (
-    <>
-      {mode !== SHOW_WORKOUT && (
       <main>
         <TopNav setUser={setUser}/>
 
@@ -189,7 +219,7 @@ export default function Challenges({user, state, setState, setUser}) {
 
         { mode === SHOW_RANKING && (
             <div className="d-flex flex-row justify-content-between border">
-              <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user}/>
+              <Challenge characters={state.characters} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} user={user} toggle={()=>toggleChallengesView(SHOW_MY_CHALLENGES)}/>
             </div>
         )}
 
@@ -208,14 +238,11 @@ export default function Challenges({user, state, setState, setUser}) {
           </div>
         )}
 
+        { mode === SHOW_WORKOUT && (
+        <WorkoutChallenge state={state} setState={setState} user={user} userProgress={state.user_challenges[currentChallenge.id]} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} onComplete={completeWorkout} toggle={()=>toggleChallengesView(SHOW_MY_CHALLENGES)}/>
+        )}
 
         <Footer/>
-      </main>)}
-
-      { mode === SHOW_WORKOUT && (
-      <WorkoutChallenge user={user} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} />
-        )
-      }
-    </>
+      </main>
   );
 }

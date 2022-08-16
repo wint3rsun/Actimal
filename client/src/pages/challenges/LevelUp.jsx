@@ -4,7 +4,7 @@ import React, { Fragment, useState} from "react";
 import Box from "../../assets/box.gif";
 import Gift from "../../assets/gift-box.gif";
 
-export default function LevelUp() {
+export default function LevelUp({user}) {
   const [Alert,setAlert]=useState(true);
   setTimeout(() => {
     setAlert(false);
@@ -19,11 +19,11 @@ export default function LevelUp() {
         <img className="cat" src={Box} alt= "" />
       </div>
       <div className="right">
-        <p className="title">
-        <h1 className="title"> Congratulations !!!</h1>
-        You just Leveled up and Unlocked a new pet, 
+        <div className="title">
+        <h1 className="title"> Congratulations {user.name}!!!</h1>
+        You've just leveled up to {user.level} and Unlocked a new pet, 
         Please Go check it out! Great Job, keep working hard.
-        </p> 
+        </div> 
       </div>
       
       </div>}

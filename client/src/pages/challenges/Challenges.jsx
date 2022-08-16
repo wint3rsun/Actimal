@@ -6,13 +6,15 @@ import Footer from "../../Footer";
 import ChallengeListItem from "../../ChallengeListItem";
 import QuickStats from "../../QuickStats";
 import Challenge from "../../Challenge";
+import WorkoutChallenge from "./WorkoutChallenge"
 
 const SHOW_ALL = "SHOW_ALL";
 const SHOW_RANKING = "SHOW_RANKING";
 const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
+const SHOW_WORKOUT = "SHOW_WORKOUT"
 
-export default function Challenges({user, state, setState,flag}) {
+export default function Challenges({user, state, setState,flag, updateUserLvl}) {
   const [mode, setMode] = useState(SHOW_ALL);
   
   const [currentChallenge, setCurrentChallenge] = useState({});
@@ -84,7 +86,8 @@ export default function Challenges({user, state, setState,flag}) {
     const progress = {
       user_id: user.id,
       updata_progress: update.toFixed(2),
-      id:i.id
+      id:i.id,
+      type:'steps'
     }
     axios
     .put((`http://localhost:8080/participants/update_data`), { progress })
@@ -105,13 +108,49 @@ export default function Challenges({user, state, setState,flag}) {
 
   }
 
+  function completeWorkout(id) {
+    const update = {
+      user_id: user.id,
+      id: id
+    }
+    const awardedEXP = state.quests[currentChallenge.quest_id].base_experience;
+    const exp = awardedEXP + user.experience_points;
+
+    console.log(exp);
+
+    Promise.all([
+      axios.put((`http://localhost:8080/participants/complete`), { update }),
+      axios.put((`http://localhost:8080/levels/${user.id}`), { exp })
+    ]).then((all) => {
+
+      setState({
+        ...state,
+        user_challenges: all[0].data
+        });
+
+        const newLevel = all[1].data.level;
+        const newExp = all[1].data.experience_points;
+
+        console.log("level: ", newLevel);
+        console.log("exp: ", newExp);
+        updateUserLvl(newLevel, newExp);
+  
+    }).catch(err=>console.log(err));
+  }
+
   const ranking = (game_challenge) => {
     setCurrentChallenge(game_challenge);
     setMode(SHOW_RANKING);
   }
 
+  const workout = (game_challenge) => {
+    setCurrentChallenge(game_challenge);
+    setMode(SHOW_WORKOUT);
+  }
+
   function toggleChallengesView(view) {
     if(view === SHOW_ALL) {
+      setCurrentChallenge({});
       setMode(SHOW_ALL);
     }
     if (view === SHOW_MY_CHALLENGES) {
@@ -136,6 +175,7 @@ export default function Challenges({user, state, setState,flag}) {
         quest={quest}
         onJoin={join}
         onRanking={ranking}
+        onWorkout={workout}
         onShow={showDetail}
         alreadyJoined={alreadyJoined}
         isRequiredLevel={isRequiredLevel}
@@ -205,6 +245,10 @@ export default function Challenges({user, state, setState,flag}) {
             {availableChallenges}
           </div>
         </div>
+      )}
+
+      { flag && mode === SHOW_WORKOUT && (
+        <WorkoutChallenge state={state} setState={setState} user={user} userProgress={state.user_challenges[currentChallenge.id]} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} onComplete={completeWorkout} toggle={()=>toggleChallengesView(SHOW_MY_CHALLENGES)}/>
       )}
 
       <Footer/>

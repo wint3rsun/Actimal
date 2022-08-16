@@ -7,6 +7,7 @@ import ChallengeListItem from "../../ChallengeListItem";
 import QuickStats from "../../QuickStats";
 import Challenge from "../../Challenge";
 import WorkoutChallenge from "./WorkoutChallenge"
+import LevelUp from "./LevelUp";
 
 const SHOW_ALL = "SHOW_ALL";
 const SHOW_RANKING = "SHOW_RANKING";
@@ -14,8 +15,9 @@ const SHOW_MY_CHALLENGES = "SHOW_MY_CHALLENGES";
 const SHOW_AVAILABLE = "SHOW_AVAILABLE";
 const SHOW_WORKOUT = "SHOW_WORKOUT"
 
-export default function Challenges({user, state, setState,flag, updateUserLvl}) {
+export default function Challenges({setUser, user, state, setState,flag, updateUserLvl}) {
   const [mode, setMode] = useState(SHOW_ALL);
+  const [open, setOpen] = useState(false);
   
   const [currentChallenge, setCurrentChallenge] = useState({});
   
@@ -129,13 +131,26 @@ export default function Challenges({user, state, setState,flag, updateUserLvl}) 
         user_challenges: all[0].data
         });
 
+
         const newLevel = all[1].data.level;
         const newExp = all[1].data.experience_points;
-
         console.log("level: ", newLevel);
         console.log("exp: ", newExp);
-        updateUserLvl(newLevel, newExp);
-  
+        
+        if(newLevel > user.level){
+          setOpen(true);
+        }
+
+        let newUser = user;
+        newUser.level = newLevel;
+        newUser.experience_points = newExp;
+        localStorage.setItem('data', JSON.stringify(newUser));
+        
+        setUser(prev => ({
+          ...prev,
+          level: newLevel,
+          experience_points: newExp
+        }));
     }).catch(err=>console.log(err));
   }
 
@@ -249,7 +264,11 @@ export default function Challenges({user, state, setState,flag, updateUserLvl}) 
       )}
 
       { flag && mode === SHOW_WORKOUT && (
+        <>
         <WorkoutChallenge state={state} setState={setState} user={user} userProgress={state.user_challenges[currentChallenge.id]} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} onComplete={completeWorkout} toggle={()=>toggleChallengesView(SHOW_MY_CHALLENGES)}/>
+        {open && <LevelUp user={user} />}
+        </>
+        
       )}
 
       <Footer/>

@@ -2,7 +2,7 @@ import React from "react";
 
 import "./ChallengeListItem.scss"
 
-export default function ChallengeListItem({challenge, quest, onJoin, onShow, onRanking, alreadyJoined, isRequiredLevel}) {
+export default function ChallengeListItem({challenge, quest, onJoin, onShow, onRanking, onWorkout, alreadyJoined, isRequiredLevel}) {
   const joinButtonClasses = alreadyJoined || !isRequiredLevel? "btn btn-secondary disabled" : "btn btn-primary";
   const viewableClasses = !isRequiredLevel? "disabled" : "";
 
@@ -31,7 +31,9 @@ export default function ChallengeListItem({challenge, quest, onJoin, onShow, onR
           <div className="d-flex flex-row justify-content-end">
             <a onClick={()=>onJoin(challenge.id)} className={`mx-2 ${joinButtonClasses}`}>Join</a>
             <a onClick={()=>onShow(challenge.id)} className={`btn btn-primary mx-2 ${viewableClasses}`}>See Details</a>
-            <a onClick={()=>onRanking(challenge)} className="btn btn-primary mx-2">See Ranking</a>
+            {challenge.challenges_type === 'steps'? ( alreadyJoined && <a onClick={()=>onRanking(challenge)} className="btn btn-primary mx-2">See Ranking</a>)
+            :( alreadyJoined && <a onClick={()=>onWorkout(challenge)} className="btn btn-primary mx-2">Workout</a>) 
+            }
           </div>
           <br />
         </div>

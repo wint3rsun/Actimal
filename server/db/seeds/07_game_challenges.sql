@@ -20,3 +20,4 @@ INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALU
 INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-06-10','2022-06-12',20,'steps');
 INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-06-10','2022-06-12',21,'steps');
 INSERT INTO game_challenges (end_date,quest_id,challenges_type) VALUES ('2022-09-01',8,'steps');
+INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-08-14','2022-12-22',22,'workout');

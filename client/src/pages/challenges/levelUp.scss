@@ -1,0 +1,30 @@
+.title{
+  color: white;
+}
+
+
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  }
+
+  .outbox{
+    width: 600px;
+    overflow: hidden;
+    border: 2px white dashed;
+  }
+
+  .left{
+    float:left;
+    width: 40%;
+  }
+  .right{
+    padding-top: 10px;
+    float:right;
+    width: 60%;
+  }
+
+

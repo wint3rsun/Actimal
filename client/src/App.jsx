@@ -15,7 +15,6 @@ import MyPets from "./pages/myPets/MyPets";
 import Profile from "./pages/profile/Profile";
 import Register from "./Registration/Register"
 import WorkoutChallenge from "./pages/challenges/WorkoutChallengeCopy"
-import Register from "./Registration/Register";
 import LevelUp from "./pages/challenges/LevelUp";
 
 import 'bootstrap/dist/css/bootstrap.css';

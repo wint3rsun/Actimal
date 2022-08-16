@@ -55,13 +55,21 @@ function App() {
         setflag(true);
     });
   }, []);
+
+  function updateUserLvl (level, exp) {
+    setUser(prev => ({
+      ...prev,
+      level: level,
+      experience_points: exp
+    }));
+  }
   
 
   return (
   <BrowserRouter>
     <Routes >
       <Route path="/" element={<Home setUser={setUser} state={state} />}/>
-      <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data} flag={flag}/> : <Home setUser={setUser}/>} />
+      <Route path="/challenges" element={data? <Challenges state={state} setState={setState} user={data} flag={flag} updateUserLvl={updateUserLvl}/> : <Home setUser={setUser}/>} />
       <Route path="/myPets" element={data ? <MyPets user={data}/> : <Home setUser={setUser}/>} />
       <Route path="/profile" element={data ? <Profile user={data} characters={state.characters} levels={state.levels} flag={flag}/> : <Home setUser={setUser} />} />
       <Route path="/register" element={<Register />} />

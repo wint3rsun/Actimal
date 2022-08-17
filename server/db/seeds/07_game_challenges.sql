@@ -1,5 +1,5 @@
-INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-01-21','2022-01-22',1,'steps');
-INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-01-24','2022-01-25',1,'steps');
+INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-01-21','2023-01-22',1,'steps');
+INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-01-24','2023-01-25',1,'steps');
 INSERT INTO game_challenges (start_date, quest_id,challenges_type) VALUES ('2022-02-10',2,'steps');
 INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-03-10','2022-03-11',3,'steps');
 INSERT INTO game_challenges (start_date, end_date,quest_id,challenges_type) VALUES ('2022-04-10','2022-04-17',4,'steps');

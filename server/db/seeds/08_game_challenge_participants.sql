@@ -9,6 +9,7 @@ INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id)
 INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id) VALUES (3.2,3,7);
 INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id) VALUES (25.2,3,8);
 INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id) VALUES (55,3,9);
+INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id) VALUES (0.00,3,3);
 
 
 INSERT INTO game_challenge_participants (progress, game_challenges_id ,users_id) VALUES (87.9,4,5);

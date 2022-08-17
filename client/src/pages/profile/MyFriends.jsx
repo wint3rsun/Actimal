@@ -62,7 +62,7 @@ export default function MyFriends({user}) {
 
         <button onClick={()=>{setSearch(false); setFollow(true);setFollower(false)}} type='button' className='btn border-0' >
           <FontAwesomeIcon icon={faUserPlus}/>
-          <p>Followed</p>
+          <p>Following</p>
         </button>
 
         <button onClick={()=>{setSearch(false);setFollow(false);setFollower(true)}} type='button' className='btn position-relative border-0'>

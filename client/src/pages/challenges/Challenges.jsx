@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./challenges.scss";
 
 import TopNav from "../../TopNav";
 import Footer from "../../Footer";
@@ -266,7 +267,7 @@ export default function Challenges({setUser, user, state, setState,flag, updateU
       { flag && mode === SHOW_WORKOUT && (
         <>
         <WorkoutChallenge state={state} setState={setState} user={user} userProgress={state.user_challenges[currentChallenge.id]} challenge={currentChallenge} quest={state.quests[currentChallenge.quest_id]} onComplete={completeWorkout} toggle={()=>toggleChallengesView(SHOW_MY_CHALLENGES)}/>
-        {open && <LevelUp user={user} />}
+        {open && <LevelUp user={user} className="levelup" />}
         </>
         
       )}

@@ -11,7 +11,9 @@ import RankList from "./RankList";
 import "./Challenge.scss";
 import Screen from "./Screen";
 
-const socket = io.connect("http://localhost:8080");
+// const socket = io.connect("http://localhost:8080");
+const socket = io.connect("http://192.168.0.20:8080");
+
 
 export default function Challenge({challenge, quest, characters, user}) {
   //for close button navigation

@@ -9,7 +9,7 @@ export default function TopNav() {
 
     <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#"><div className="logo"><video autoPlay loop mute><source src="/ActimalX-Logo.mp4" /></video></div></a>
+        <a className="navbar-brand" href="#"><div className="logo"><video poster="/ActimalX-Logo.svg" autoPlay loop muted><source src="/ActimalX-Logo.mp4" type="video/mp4"/></video></div></a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
           <span className="navbar-toggler-icon"></span>
         </button>

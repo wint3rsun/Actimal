@@ -67,7 +67,7 @@ export default function Home({setUser,state}) {
     <div className="homePage">
       <div className="wrapper">
         <div className="logo">
-          <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="" />
+        <video autoPlay loop mute><source src="/ActimalX-Logo.mp4" /></video>
         </div>
         <div className="text-center mt-4 name">
           Member Login

@@ -12,15 +12,16 @@ export default function LevelUp({user}) {
 
   return (
     <Fragment > 
-      <Background></Background>
-      {Alert ? <img className="center gift" src={Gift} alt= "" /> :
+      {/* <Background></Background> */}
+      {Alert ? <div className="center outbox"><img className="center gift" src={Gift} alt= "" /></div> :
       <div className="center outbox">
+      <Background></Background>
       <div className="left">
         <img className="cat" src={Box} alt= "" />
       </div>
       <div className="right">
         <div className="title">
-        <h1 className="title"> Congratulations {user.name}!!!</h1>
+        <h1 className="title"> Congratulations {user.username} !!!</h1>
         You've just leveled up to {user.level} and Unlocked a new pet, 
         Please Go check it out! Great Job, keep working hard.
         </div> 

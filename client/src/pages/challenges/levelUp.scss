@@ -12,19 +12,23 @@
   }
 
   .outbox{
-    width: 600px;
+    width: 70%;
+    height:50%;;
     overflow: hidden;
-    border: 2px white dashed;
+    border-radius: 10px;
   }
 
   .left{
+    padding-left: 10%;
+    margin-top: 10%;
     float:left;
-    width: 40%;
+    width: 35%;
   }
   .right{
-    padding-top: 10px;
+    margin-top: 60px;
+    padding-top: 7%;
     float:right;
-    width: 60%;
+    width: 65%;
   }
 
 

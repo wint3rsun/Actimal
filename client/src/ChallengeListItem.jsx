@@ -38,25 +38,25 @@ export default function ChallengeListItem({challenge, quest, onJoin, onShow, onR
           <br />
         </div>
       </li>
-      <button id="challenge-detail-btn" type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <button id={`challenge-detail-btn${challenge.id}`} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${challenge.id}`}></button>
+      <div className="modal fade" id={`staticBackdrop${challenge.id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="staticBackdropLabel">I am A Challenge Detail!</h5>
+              <h5 className="modal-title" id="staticBackdropLabel">Challenge Details!</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <h1>Challenge Type</h1>
-                <p>{quest.required_level}</p> 
+              <h1>{quest.name}</h1>
+                <p className="text-muted">Required Level: {quest.required_level}</p> 
+                <p>{quest.description}</p>
+                <h2>Challenge Info</h2>
               <p>
-                goal: 10000,
-                goal_units: "steps",
-                required_level: 0,
-                base_experience: 10,
-                first_place_exp_bonus: 5,
-                second_place_exp_bonus: 3,
-                third_place_exp_bonus: 1
+                Goal: {quest.goal} {quest.goal_units}<br/>
+                Base EXP: {quest.base_experience}pts<br/>
+                {quest.goal_units === 'steps' && `1st Place Bonus: ${quest.first_place_exp_bonus} pts`}<br/>
+                {quest.goal_units === 'steps' && `2nd Place Bonus: ${quest.first_place_exp_bonus} pts`}<br/>
+                {quest.goal_units === 'steps' && `3rd Place Bonus: ${quest.first_place_exp_bonus} pts`}
               </p>
             </div>
             <div className="modal-footer">

@@ -4,8 +4,6 @@ import { useState } from "react";
 import Screen from "./Screen";
 
 const socket = io.connect("http://localhost:8080");
-// const socket = io.connect("http://192.168.0.20:8080");
-
 
 function Chat(props) {
   const [username, setUsername] = useState(props.username);

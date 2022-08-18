@@ -32,8 +32,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    // origin: "http://localhost:3002",
-    // origin: "http://192.168.0.20:3002",
+    origin: "http://localhost:3002",
     methods: ["GET", "POST"],
   },
 });

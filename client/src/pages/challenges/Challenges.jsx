@@ -48,7 +48,7 @@ export default function Challenges({setUser, user, state, setState,flag, updateU
   
 
   const showDetail = (game) => {
-    document.getElementById("challenge-detail-btn").click();
+    document.getElementById(`challenge-detail-btn${game}`).click();
   }
 
   function join(game_id) {

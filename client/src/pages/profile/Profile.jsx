@@ -41,7 +41,7 @@ export default function Profile({user, characters, levels, flag}) {
   return (
     <main className="profile-layout">
       {flag && <>
-      <div className="border mt-3 position-relative">
+      <div className="border mt-3 position-relative shadow rounded">
       <button type="button" className="profile-btn btn-close" aria-label="Close" onClick={() => navigate(-1)}></button>
       <nav className="profile d-flex flex-row justify-content-around py-3" >
         <p onClick={() => {openTab("me")}} id="me" className="tab active"><FontAwesomeIcon icon={faUser}/>Me</p>

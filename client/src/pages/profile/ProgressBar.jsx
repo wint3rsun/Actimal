@@ -1,6 +1,6 @@
 import "./ProgressBar.scss"
 
-export default function ProgressBar({min, max, current, unit}) {
+export default function ProgressBar({min, max, current, unit, children}) {
   const props = {
     min: 0,
     max: 100,
@@ -23,6 +23,7 @@ export default function ProgressBar({min, max, current, unit}) {
   }
   return (
     <div className="progress-container d-flex flex-column px-2">
+      {children && <h5 className="text-muted">{children}</h5>}
       <div className="progress">
         <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={current} aria-valuemin={min} aria-valuemax={max} style={{width:`${current/max*100}%`}}></div>
       </div>

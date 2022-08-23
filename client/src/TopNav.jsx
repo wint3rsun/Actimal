@@ -22,7 +22,7 @@ export default function TopNav() {
             <a href="/challenges"><i className="fa fa-tasks"></i>Dashboard</a>
             </li>
             <li className="nav-item">
-            <a href="/myPets"><i className="fa fa-paw"></i> My Animals</a>
+            <a href="/myPets"><i className="fa fa-paw"></i> My Actimals</a>
             </li>
           </ul>
         </div>

@@ -10,17 +10,17 @@
 
 ### Demo Video
 [![Watch the video](https://img.youtube.com/vi/-XIoD08mPB0/maxresdefault.jpg)](https://youtu.be/-XIoD08mPB0)
-*click above to watch*
+*click image above to watch*
 
-![dashboard page]()
+![dashboard page](https://github.com/wint3rsun/Actimal/blob/master/docs/1_dashboard.png?raw=true)
 
-![challenge ranking page]()
+![challenge leaderboard page](https://github.com/wint3rsun/Actimal/blob/master/docs/2_challenge_leaderboard.png?raw=true)
 
-![challenge workout video page]()
+![challenge workout video page](https://github.com/wint3rsun/Actimal/blob/master/docs/4_challenge_workout.png?raw=true)
 
-![actimal page]()
+![actimal page](https://github.com/wint3rsun/Actimal/blob/master/docs/5_my_actimals.png?raw=true)
 
-![profile page]()
+![profile page](https://github.com/wint3rsun/Actimal/blob/master/docs/6_profile_me.png?raw=true)
 
 
 ## Tech Stack

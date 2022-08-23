@@ -9,8 +9,7 @@
 ## Final Product
 
 ### Demo Video
-[![Watch the video](https://img.youtube.com/vi/-XIoD08mPB0/maxresdefault.jpg)](https://youtu.be/-XIoD08mPB0)
-*click image above to watch*
+[[Click here to watch demo!]](https://youtu.be/-XIoD08mPB0)
 
 ![dashboard page](https://github.com/wint3rsun/Actimal/blob/master/docs/1_dashboard.png?raw=true)
 
